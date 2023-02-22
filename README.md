@@ -7,4 +7,8 @@ A gallery of various landmarks throughout the United States. A base build using 
 ### Features
 
 ![Responsive Design Demo GIF](./responsive-design.gif)
-Responsive Design: The web page reacts to different resolutions by collapsing or adjusting sizes 
+Responsive Design: The web page reacts to different resolutions by collapsing or adjusting sizes.
+
+### GitHub Pages link
+
+[Link to Live Website] https://ivan-cosgrove.github.io/se_project_aroundtheus/
