@@ -9,19 +9,13 @@
 }
 
 .header__logo {
-  margin: 45px auto 41px 200px;
+  margin: 45px auto 41px 15.5%;
   width: 173px;
 }
 
-@media screen and (max-width: 762px) {
-  .header__logo {
-    margin-left: auto;
-  }
-}
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
   .header__logo {
     width: 126px;
     height: 24px;
-    margin: 28px 0 32px 27px;
   }
 }
