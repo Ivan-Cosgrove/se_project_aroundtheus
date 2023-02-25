@@ -1,6 +1,6 @@
 .header {
   background-color: #000;
-  max-width: 1280px;
+  max-width: 880px;
   margin: auto;
   color: #fff;
   display: flex;
@@ -9,7 +9,7 @@
 }
 
 .header__logo {
-  margin: 45px auto 41px 15.5%;
+  margin: 45px auto 41px 0;
   width: 173px;
 }
 
@@ -17,5 +17,6 @@
   .header__logo {
     width: 126px;
     height: 24px;
+    margin: 28px auto 32px 27px;
   }
 }

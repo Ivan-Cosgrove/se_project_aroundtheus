@@ -1,5 +1,5 @@
 .footer {
-  margin: 67px 0 0 0;
+  margin: 67px 0 0 200px;
   padding-bottom: 60px;
   font-family: "Inter", sans-serif;
   font-size: 18px;
@@ -7,6 +7,7 @@
   line-height: 22px;
   letter-spacing: 0em;
   text-align: left;
+  max-width: 1280px;
 }
 
 .footer__text {
