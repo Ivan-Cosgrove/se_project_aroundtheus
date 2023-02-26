@@ -19,6 +19,9 @@
   grid-template-columns: max-content;
   grid-template-areas: "title button" "subtitle subtitle";
   grid-gap: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile__title {
@@ -30,9 +33,6 @@
   letter-spacing: 0em;
   text-align: left;
   grid-area: title;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .profile__subtitle {
@@ -46,9 +46,6 @@
   letter-spacing: 0em;
   text-align: left;
   grid-area: subtitle;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .profile__buttons {
