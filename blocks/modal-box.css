@@ -1,0 +1,57 @@
+.modal-box {
+  width: 1280px;
+  position: fixed;
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-box_opened {
+  display: flex;
+}
+
+.modal-box__container {
+  max-width: 430px;
+  max-height: 330px;
+  background: #fff;
+  position: fixed;
+  margin: 0;
+}
+
+.modal-box__button {
+  position: absolute;
+  right: -40px;
+  top: -40px;
+  background: none;
+  border: none;
+  transform: scale(calc(40 / 22));
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+}
+
+.modal-box__button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 879px) {
+  .modal-box {
+    justify-content: left;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .modal-box {
+    margin: 0 19px;
+  }
+  .modal-box__container {
+    max-width: 282px;
+    max-height: 322px;
+  }
+  .modal-box__button {
+    transform: scale(calc(26 / 22));
+    right: 0;
+    top: -60px;
+  }
+}

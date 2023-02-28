@@ -10,6 +10,10 @@
 
 @import url(../blocks/profile.css);
 
+@import url(../blocks/modal-box.css);
+
+@import url(../blocks/form.css);
+
 @import url(../blocks/cards.css);
 
 @import url(../blocks/card.css);
