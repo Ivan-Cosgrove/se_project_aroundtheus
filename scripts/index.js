@@ -24,3 +24,17 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/lago.jpg",
   },
 ];
+
+const modalBox = document.querySelector(".modal-box");
+const modalBoxOpen = document.querySelector(".modal-box_opened");
+const modalClose = document.querySelector(".modal-box__button");
+const editButton = document.querySelector(".profile__buttons-edit");
+
+editButton.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  modalBox.classList.add("modalBoxOpen");
+});
+modalClose.addEventListener("click", function (evt) {
+  evt.preventDefault();
+  modalBox.classList.remove("modalBoxOpen");
+});
