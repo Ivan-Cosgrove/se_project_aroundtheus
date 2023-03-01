@@ -34,6 +34,7 @@
   cursor: pointer;
   transition: opacity 0.3s linear;
   transition: rotate 0.3s linear;
+  padding: 0;
 }
 
 .modal-box__button:hover {

@@ -32,9 +32,9 @@ const editButton = document.querySelector(".profile__buttons-edit");
 
 editButton.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalBox.classList.add(modalBoxOpen);
+  modalBox.classList.toggle("modal-box_opened");
 });
 modalClose.addEventListener("click", function (evt) {
   evt.preventDefault();
-  modalBox.classList.remove(modalBoxOpen);
+  modalBox.classList.toggle("modal-box_opened");
 });
