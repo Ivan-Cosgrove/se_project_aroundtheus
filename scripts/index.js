@@ -29,27 +29,27 @@ modalBox.addEventListener("submit", function formSubmit(evt) {
 const initialCards = [
   {
     name: "Yosemite Valley",
-    link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
   },
   {
     name: "Lake Louise",
-    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
   },
   {
     name: "Bald Mountains",
-    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
   },
   {
     name: "Latemar",
-    link: "https://code.s3.yandex.net/web-code/latemar.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
   },
   {
     name: "Vanoise National Park",
-    link: "https://code.s3.yandex.net/web-code/vanoise.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
   },
   {
     name: "Lago di Braies",
-    link: "https://code.s3.yandex.net/web-code/lago.jpg",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
 
@@ -59,8 +59,8 @@ function getCardTemplate(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   let cardName = cardElement.querySelector(".card__title");
   let cardImage = cardElement.querySelector(".card__image");
-  let cardCap = initialCards.name;
-  let cardImg = initialCards.link;
+  let cardCap = data.name;
+  let cardImg = data.link;
   cardName.textContent = cardCap;
   cardImage.src = cardImg;
   cardImage.alt = cardCap;
