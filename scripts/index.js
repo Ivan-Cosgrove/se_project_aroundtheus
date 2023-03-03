@@ -62,22 +62,21 @@ const initialCards = [
 ];
 const cardList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card").content;
-const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-const cardName = cardElement.querySelector(".card__title");
-const cardImage = cardElement.querySelector(".card__image");
+
 function getCardTemplate(data) {
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardName = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
   const cardCap = data.name;
   const cardImg = data.link;
   cardName.textContent = cardCap;
   cardImage.src = cardImg;
   cardImage.alt = cardCap;
-  cardElement.cloneNode(true);
-  return card;
+  return cardElement;
 }
-function addCard() {
+function addCard(cardElement) {
   cardList.append(cardElement);
 }
 for (let card of initialCards) {
-  getCardTemplate(card);
-  addCard();
+  addCard(getCardTemplate(card));
 }
