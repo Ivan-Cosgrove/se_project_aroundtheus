@@ -1,28 +1,36 @@
 //Modal Box Code
-const modalBox = document.querySelector(".modal-box");
-const modalBoxOpen = document.querySelector(".modal-box_opened");
-const modalClose = document.querySelector(".modal-box__button");
+const profileModal = document.querySelector(".modal-box");
+const profileModalClose = profileModal.querySelector(
+  ".modal-box__close-button"
+);
 const editButton = document.querySelector(".profile__buttons-edit");
 const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__subtitle");
-const nameValue = document.querySelector(".form__input_type_name");
-const descValue = document.querySelector(".form__input_type_description");
+const nameInput = document.querySelector(".form__input_type_name");
+const descInput = document.querySelector(".form__input_type_description");
 
+function fillProfileValues() {
+  nameInput.value = profileName.textContent;
+  descInput.value = profileDesc.textContent;
+}
+function toggleModal() {
+  profileModal.classList.toggle("modal-box_opened");
+}
 editButton.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  nameValue.value = profileName.textContent;
-  descValue.value = profileDesc.textContent;
-  modalBox.classList.toggle("modal-box_opened");
+  fillProfileValues();
+  toggleModal();
 });
-modalClose.addEventListener("click", function (evt) {
-  evt.preventDefault();
-  modalBox.classList.toggle("modal-box_opened");
+profileModalClose.addEventListener("click", function () {
+  toggleModal();
 });
-modalBox.addEventListener("submit", function formSubmit(evt) {
+function pullFormValues() {
+  profileName.textContent = nameInput.value;
+  profileDesc.textContent = descInput.value;
+}
+profileModal.addEventListener("submit", function formSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = nameValue.value;
-  profileDesc.textContent = descValue.value;
-  modalBox.classList.toggle("modal-box_opened");
+  pullFormValues();
+  toggleModal();
 });
 
 //Cards Code
@@ -52,20 +60,24 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
-
+const cardList = document.querySelector(".cards__list");
+const cardTemplate = document.querySelector("#card").content;
+const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+const cardName = cardElement.querySelector(".card__title");
+const cardImage = cardElement.querySelector(".card__image");
 function getCardTemplate(data) {
-  const cardList = document.querySelector(".cards__list");
-  const cardTemplate = document.querySelector("#card").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  let cardName = cardElement.querySelector(".card__title");
-  let cardImage = cardElement.querySelector(".card__image");
-  let cardCap = data.name;
-  let cardImg = data.link;
+  const cardCap = data.name;
+  const cardImg = data.link;
   cardName.textContent = cardCap;
   cardImage.src = cardImg;
   cardImage.alt = cardCap;
+  cardElement.cloneNode(true);
+  return card;
+}
+function addCard() {
   cardList.append(cardElement);
 }
 for (let card of initialCards) {
   getCardTemplate(card);
+  addCard();
 }

@@ -71,12 +71,10 @@
   grid-area: button;
   justify-self: flex-end;
   align-self: center;
-  transition: rotate 0.5s linear;
 }
 
 .profile__buttons-edit:hover {
   opacity: 0.6;
-  rotate: 360deg;
 }
 
 .profile__buttons-add {
@@ -93,12 +91,10 @@
   justify-content: center;
   margin-left: auto;
   background-color: rgba(255, 255, 255, 0);
-  transition: rotate 0.5s linear;
 }
 
 .profile__buttons-add:hover {
   opacity: 0.6;
-  rotate: 180deg;
 }
 
 @media screen and (max-width: 879px) {
