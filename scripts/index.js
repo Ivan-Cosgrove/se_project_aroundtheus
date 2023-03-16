@@ -1,38 +1,3 @@
-//Modal Box Code
-const profileModal = document.querySelector(".modal-box");
-const profileModalClose = profileModal.querySelector(
-  ".modal-box__close-button"
-);
-const editButton = document.querySelector(".profile__buttons-edit");
-const profileName = document.querySelector(".profile__title");
-const profileDesc = document.querySelector(".profile__subtitle");
-const nameInput = document.querySelector(".form__input_type_name");
-const descInput = document.querySelector(".form__input_type_description");
-
-function fillProfileValues() {
-  nameInput.value = profileName.textContent;
-  descInput.value = profileDesc.textContent;
-}
-function toggleModal() {
-  profileModal.classList.toggle("modal-box_opened");
-}
-editButton.addEventListener("click", function (evt) {
-  fillProfileValues();
-  toggleModal();
-});
-profileModalClose.addEventListener("click", function () {
-  toggleModal();
-});
-function pullFormValues() {
-  profileName.textContent = nameInput.value;
-  profileDesc.textContent = descInput.value;
-}
-profileModal.addEventListener("submit", function formSubmit(evt) {
-  evt.preventDefault();
-  pullFormValues();
-  toggleModal();
-});
-
 //Cards Code
 const initialCards = [
   {
@@ -77,6 +42,40 @@ function getCardTemplate(data) {
 function addCard(cardElement) {
   cardList.append(cardElement);
 }
-for (let card of initialCards) {
+initialCards.forEach((card) => {
   addCard(getCardTemplate(card));
+});
+
+//Modal Box Code
+const modalTemplate = document.querySelector("#modal-box");
+const modal = modalTemplate.querySelector(".modal-box");
+const modalClose = modal.querySelector(".modal-box__close-button");
+const editButton = document.querySelector(".profile__buttons-edit");
+const profileName = document.querySelector(".profile__title");
+const profileDesc = document.querySelector(".profile__subtitle");
+const nameInput = document.querySelector(".form__input_type_name");
+const descInput = document.querySelector(".form__input_type_description");
+
+function fillProfileValues() {
+  nameInput.value = profileName.textContent;
+  descInput.value = profileDesc.textContent;
 }
+function toggleModal() {
+  modal.classList.toggle("modal-box_opened");
+}
+editButton.addEventListener("click", function (evt) {
+  fillProfileValues();
+  toggleModal();
+});
+modalClose.addEventListener("click", function () {
+  toggleModal();
+});
+function pullFormValues() {
+  profileName.textContent = nameInput.value;
+  profileDesc.textContent = descInput.value;
+}
+modal.addEventListener("submit", function formSubmit(evt) {
+  evt.preventDefault();
+  pullFormValues();
+  toggleModal();
+});
