@@ -47,35 +47,68 @@ initialCards.forEach((card) => {
 });
 
 //Modal Box Code
-const modalTemplate = document.querySelector("#modal-box");
-const modal = modalTemplate.querySelector(".modal-box");
+const modalTemplate = document.querySelector("#modal-box").content;
+const modal = modalTemplate.querySelector(".modal-box").cloneNode(true);
 const modalClose = modal.querySelector(".modal-box__close-button");
 const editButton = document.querySelector(".profile__buttons-edit");
 const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__subtitle");
-const nameInput = document.querySelector(".form__input_type_name");
-const descInput = document.querySelector(".form__input_type_description");
+const nameInput = modal.querySelector(".form__input_type_name");
+const descInput = modal.querySelector(".form__input_type_description");
+const body = document.querySelector(".body");
+const profilePara = document.querySelector(".profile__paragraph");
 
 function fillProfileValues() {
   nameInput.value = profileName.textContent;
   descInput.value = profileDesc.textContent;
 }
-function toggleModal() {
-  modal.classList.toggle("modal-box_opened");
+function openModal() {
+  modal.classList.add("modal-box_opened");
 }
+function closeModal() {
+  modal.classList.remove("modal-box_opened");
+}
+editButton.after(modal);
 editButton.addEventListener("click", function (evt) {
+  modalTitle.textContent = "Edit Profile";
   fillProfileValues();
-  toggleModal();
+  openModal();
 });
 modalClose.addEventListener("click", function () {
-  toggleModal();
+  closeModal();
 });
-function pullFormValues() {
+function pullProfileValues() {
   profileName.textContent = nameInput.value;
   profileDesc.textContent = descInput.value;
 }
 modal.addEventListener("submit", function formSubmit(evt) {
-  evt.preventDefault();
-  pullFormValues();
-  toggleModal();
+  if ((modal.parentElement = profilePara)) {
+    evt.preventDefault();
+    pullProfileValues();
+    closeModal();
+  } else {
+    evt.preventDefault();
+  }
+});
+
+const addButton = document.querySelector(".profile__buttons-add");
+const modalTitle = document.querySelector(".form__title");
+
+cardList.append(modal);
+
+addButton.addEventListener("click", function (evt) {
+  modalTitle.textContent = "Add Picture";
+  nameInput.value = "";
+  descInput.value = "";
+  descInput.placeholder = "Image Link";
+  openModal();
+});
+
+modal.addEventListener("submit", function formSubmit(evt) {
+  if ((modal.parentElement = cardList)) {
+    evt.preventDefault();
+    closeModal();
+  } else {
+    evt.preventDefault();
+  }
 });
