@@ -6,10 +6,13 @@
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transition: opacity 0.5s linear;
 }
 
 .modal-box_opened {
   display: flex;
+  opacity: 1;
 }
 
 .modal-box__container {
