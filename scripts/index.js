@@ -25,13 +25,15 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
-const newCardArray = [];
+
 const cardList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card").content;
+const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 const cardModal = document.querySelector("#add-card");
 const imgInput = cardModal.querySelector(".form__input_type_description");
 const titleInput = cardModal.querySelector(".form__input_type_name");
-
+const cardName = cardElement.querySelector(".card__title");
+const cardImage = cardElement.querySelector(".card__image");
 function getCardTemplate(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardName = cardElement.querySelector(".card__title");
@@ -43,22 +45,14 @@ function getCardTemplate(data) {
   cardImage.alt = cardCap;
   return cardElement;
 }
+
 function addCard(cardElement) {
   cardList.append(cardElement);
 }
+
 initialCards.map((card) => {
   addCard(getCardTemplate(card));
-  return initialCards;
 });
-const cardData = Object.create(initialCards);
-function pullCardData() {
-  cardData.link = imgInput;
-  cardData.name = titleInput;
-}
-function addNewCard() {
-  initialCards.unshift(cardData);
-  addCard(initialCards);
-}
 
 //Modal Box Code
 const profileModal = document.querySelector("#edit-profile");
@@ -118,15 +112,23 @@ cardModalClose.addEventListener("click", function () {
 });
 
 addButton.addEventListener("click", function (evt) {
-  modalTitle.textContent = "Add Picture";
-  nameInput.value = "";
-  descInput.value = "";
-  descInput.placeholder = "Image Link";
   openCardModal();
 });
 
+function getNewCardTemplate(data) {
+  const newCardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardName = newCardElement.querySelector(".card__title");
+  const cardImage = newCardElement.querySelector(".card__image");
+
+  return newCardElement;
+}
+function addNewCard(newCardElement) {
+  cardList.prepend(newCardElement);
+}
 cardModal.addEventListener("submit", function formSubmit(evt) {
   evt.preventDefault();
-  addNewCard();
+  const title = titleInput.value;
+  const img = imgInput.value;
+  addNewCard(getNewCardTemplate(title, img));
   closeCardModal();
 });
