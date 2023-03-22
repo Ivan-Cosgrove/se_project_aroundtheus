@@ -34,6 +34,7 @@ const imgInput = cardModal.querySelector(".form__input_type_description");
 const titleInput = cardModal.querySelector(".form__input_type_name");
 const cardName = cardElement.querySelector(".card__title");
 const cardImage = cardElement.querySelector(".card__image");
+
 function getCardTemplate(data) {
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardName = cardElement.querySelector(".card__title");
@@ -43,14 +44,26 @@ function getCardTemplate(data) {
   cardName.textContent = cardCap;
   cardImage.src = cardImg;
   cardImage.alt = cardCap;
+  const cardLike = cardElement.querySelector(".card__button-like");
+  const deleteButton = cardElement.querySelector(".card__button-delete");
+  cardLike.addEventListener("click", function () {
+    cardLike.classList.toggle("card__button_clicked");
+  });
+  deleteButton.addEventListener("click", () => {
+    const card = deleteButton.closest(".card");
+    card.remove();
+  });
+  cardImage.addEventListener("click", () => {
+    openModalImage(data);
+  });
   return cardElement;
 }
 
 function addCard(cardElement) {
-  cardList.append(cardElement);
+  cardList.prepend(cardElement);
 }
 
-initialCards.map((card) => {
+initialCards.reverse().forEach((card) => {
   addCard(getCardTemplate(card));
 });
 
@@ -115,20 +128,25 @@ addButton.addEventListener("click", function (evt) {
   openCardModal();
 });
 
-function getNewCardTemplate(data) {
-  const newCardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardName = newCardElement.querySelector(".card__title");
-  const cardImage = newCardElement.querySelector(".card__image");
-
-  return newCardElement;
-}
-function addNewCard(newCardElement) {
-  cardList.prepend(newCardElement);
-}
 cardModal.addEventListener("submit", function formSubmit(evt) {
   evt.preventDefault();
-  const title = titleInput.value;
-  const img = imgInput.value;
-  addNewCard(getNewCardTemplate(title, img));
+  const cardCap = titleInput.value;
+  const cardImg = imgInput.value;
+  const cardData = { name: cardCap, link: cardImg };
+  addCard(getCardTemplate(cardData));
   closeCardModal();
 });
+const imageModalClose = imageModal.querySelector(".modal-box__close-button");
+const imageModal = document.querySelector(".modal-box__image-container");
+const imageModalBox = imageModal.closest(".modal-box");
+const modalImage = imageModal.querySelector(".modal-box__image");
+const modalImageTitle = document.querySelector(".modal-box__caption");
+function openModalImage(data) {
+  imageModalBox.classList.add("modal-box_opened");
+  const cardCap = data.name;
+  const cardImg = data.link;
+  modalImageTitle.textContent = cardCap;
+  modalImage.src = cardImg;
+  modalImage.alt = cardCap;
+  return imageModal;
+}

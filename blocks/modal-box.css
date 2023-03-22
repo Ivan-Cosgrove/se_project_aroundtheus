@@ -1,18 +1,26 @@
 .modal-box {
+  display: flex;
   position: fixed;
-  display: none;
+  visibility: hidden;
+  z-index: 1;
   justify-content: center;
   align-items: center;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.15);
   opacity: 0;
-  transition: opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .modal-box_opened {
-  display: flex;
   opacity: 1;
+  visibility: visible;
+}
+
+.modal-box__image {
+  z-index: 2;
+  max-width: 75vw;
+  max-height: 75vh;
 }
 
 .modal-box__container {
@@ -25,14 +33,18 @@
 
 .modal-box__close-button {
   position: absolute;
-  right: -40px;
-  top: -40px;
+  right: -8%;
+  top: -8%;
   background: none;
   border: none;
   transform: scale(calc(40 / 22));
   cursor: pointer;
-  transition: opacity 0.3s linear;
+  transition: opacity 0.5s linear;
   padding: 0;
+}
+.modal-box__image-close-button {
+  right: 8%;
+  top: 8%;
 }
 
 .modal-box__close-button:hover {
