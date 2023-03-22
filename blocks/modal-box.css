@@ -17,12 +17,6 @@
   visibility: visible;
 }
 
-.modal-box__image {
-  z-index: 2;
-  max-width: 75vw;
-  max-height: 75vh;
-}
-
 .modal-box__container {
   max-width: 430px;
   max-height: 330px;
@@ -30,7 +24,15 @@
   position: relative;
   margin: 0;
 }
+.modal-box__image {
+  z-index: 2;
+  max-width: 75vw;
+  max-height: 75vh;
+}
 
+.modal-box__caption {
+  color: #fff;
+}
 .modal-box__close-button {
   position: absolute;
   right: -8%;
@@ -52,8 +54,8 @@
 }
 
 @media screen and (max-width: 879px) {
-  .modal-box {
-    justify-content: left;
+  .modal-box__container {
+    max-width: 356px;
   }
 }
 
