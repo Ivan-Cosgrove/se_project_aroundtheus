@@ -32,6 +32,12 @@
 
 .modal-box__caption {
   color: #fff;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0em;
+  text-align: left;
 }
 .modal-box__close-button {
   position: absolute;

@@ -30,8 +30,8 @@ const cardList = document.querySelector(".cards__list");
 const cardTemplate = document.querySelector("#card").content;
 const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
 const cardModal = document.querySelector("#add-card");
-const imgInput = cardModal.querySelector(".form__input_type_description");
-const titleInput = cardModal.querySelector(".form__input_type_name");
+const imgInput = cardModal.querySelector(".form__input_type_link");
+const titleInput = cardModal.querySelector(".form__input_type_title");
 const cardName = cardElement.querySelector(".card__title");
 const cardImage = cardElement.querySelector(".card__image");
 
@@ -76,7 +76,7 @@ const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__subtitle");
 const nameInput = profileModal.querySelector(".form__input_type_name");
 const descInput = profileModal.querySelector(".form__input_type_description");
-
+const cardForm = cardModalClose.closest(".form");
 function fillProfileValues() {
   nameInput.value = profileName.textContent;
   descInput.value = profileDesc.textContent;
@@ -114,6 +114,9 @@ cardModalClose.addEventListener("click", function () {
 addButton.addEventListener("click", function (evt) {
   openModal(cardModal);
 });
+function clearInputs(form) {
+  form.reset();
+}
 
 cardModal.addEventListener("submit", function formSubmit(evt) {
   evt.preventDefault();
@@ -121,8 +124,7 @@ cardModal.addEventListener("submit", function formSubmit(evt) {
   const cardImg = imgInput.value;
   const cardData = { name: cardCap, link: cardImg };
   addCard(getCardTemplate(cardData));
-  titleInput.value = "";
-  imgInput.value = "";
+  clearInputs(cardForm);
   closeModal(cardModal);
 });
 
@@ -132,7 +134,7 @@ const imageModalBox = imageModal.closest(".modal-box");
 const modalImage = imageModal.querySelector(".modal-box__image");
 const modalImageTitle = document.querySelector(".modal-box__caption");
 function openModalImage(data) {
-  imageModalBox.classList.add("modal-box_opened");
+  openModal(imageModalBox);
   const cardCap = data.name;
   const cardImg = data.link;
   modalImageTitle.textContent = cardCap;
