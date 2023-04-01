@@ -50,21 +50,31 @@
             <h2 class="form__title">Edit profile</h2>
             <fieldset class="form__fieldset">
               <input
-                class="form__input form__input_type_name"
+                class="form__input form__input_invalid form__input_type_name"
                 type="text"
                 placeholder="Name"
                 id="name"
                 required
+                minlength="8"
+                maxlength="40"
               />
+              <p class="form__error name-error form__error_visible">
+                HTML Fill
+              </p>
               <input
-                class="form__input form__input_type_description"
+                class="form__input form__input_invalid form__input_type_description"
                 type="text"
                 placeholder="Description"
                 id="description"
                 required
+                minlength="72"
+                maxlength="200"
               />
+              <p class="form__error description-error form__error_visible">
+                HTML Fill
+              </p>
+              <button class="form__button" type="submit">Save</button>
             </fieldset>
-            <button class="form__button" type="submit">Save</button>
           </form>
         </div>
         <button class="profile__buttons-add" type="button">
@@ -76,7 +86,7 @@
         </button>
 
         <div class="modal-box" id="add-card">
-          <form class="modal-box__container form">
+          <form class="modal-box__container form" id="card-info">
             <button class="modal-box__close-button" type="button">
               <img
                 src="./images/vectors/close-icon-26x26.svg"
@@ -86,21 +96,30 @@
             <h2 class="form__title">New Place</h2>
             <fieldset class="form__fieldset">
               <input
-                class="form__input form__input_type_title"
+                class="form__input form__input_invalid form__input_type_title"
                 type="text"
                 placeholder="Title"
                 id="title"
                 required
+                minlength="21"
+                maxlength="30"
               />
+              <p class="form__error title-error form__error_visible">
+                HTML Fill
+              </p>
+
               <input
-                class="form__input form__input_type_link"
+                class="form__input form__input_invalid form__input_type_link"
                 type="url"
                 placeholder="Image link"
                 id="image-link"
                 required
               />
+              <p class="form__error image-link-error form__error_visible">
+                HTML Fill
+              </p>
+              <button class="form__button" type="submit">Create</button>
             </fieldset>
-            <button class="form__button" type="submit">Create</button>
           </form>
         </div>
       </section>
@@ -139,5 +158,6 @@
       </div>
     </div>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validate.js" defer></script>
   </body>
 </html>
