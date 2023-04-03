@@ -78,15 +78,25 @@ const nameInput = profileModal.querySelector(".form__input_type_name");
 const descInput = profileModal.querySelector(".form__input_type_description");
 const cardForm = cardModalClose.closest(".form");
 const cardInfo = document.querySelector("#card-info");
+const proSubmit = profileModal.querySelector(".form__button");
+const cardSubmit = cardModal.querySelector(".form__button");
+
 function fillProfileValues() {
   nameInput.value = profileName.textContent;
   descInput.value = profileDesc.textContent;
 }
+const escapeClose = (evt, modal) => {
+  if (evt.key === "Escape") {
+    closeModal(modal);
+  }
+};
 function openModal(modal) {
   modal.classList.add("modal-box_opened");
+  document.addEventListener("keydown", (evt) => escapeClose(evt, modal));
 }
 function closeModal(modal) {
   modal.classList.remove("modal-box_opened");
+  document.removeEventListener("keydown", (evt) => escapeClose(evt, modal));
 }
 
 editButton.addEventListener("click", function (evt) {
@@ -117,17 +127,9 @@ const setClickListeners = () => {
     box.addEventListener("click", (evt) => {
       outsideClose(evt.target);
     });
-    modals.forEach((box) =>
-      box.addEventListener("keydown", (evt) => {
-        if (evt.key === "Esc") {
-          openModal(box);
-        }
-      })
-    );
   });
 };
 setClickListeners();
-
 const addButton = document.querySelector(".profile__buttons-add");
 
 cardModalClose.addEventListener("click", function () {
@@ -136,6 +138,7 @@ cardModalClose.addEventListener("click", function () {
 
 addButton.addEventListener("click", function (evt) {
   clearInputs(cardInfo);
+  disableSubmit(cardSubmit, true);
   openModal(cardModal);
 });
 function clearInputs(form) {
@@ -195,12 +198,17 @@ const invalidInput = (inputList) => {
     return !input.validity.valid;
   });
 };
-
+function disableSubmit(button, disabled) {
+  button.setAttribute("disabled", disabled);
+}
+function enableSubmit(button) {
+  button.removeAttribute("disabled", true);
+}
 const validateSubmission = (inputList, buttonElement) => {
   if (invalidInput(inputList)) {
-    buttonElement.setAttribute("disabled", true);
+    disableSubmit(buttonElement, true);
   } else {
-    buttonElement.removeAttribute("disabled", false);
+    enableSubmit(buttonElement, true);
   }
 };
 
