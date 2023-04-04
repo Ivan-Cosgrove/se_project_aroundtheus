@@ -139,8 +139,10 @@ cardModalClose.addEventListener("click", function () {
 addButton.addEventListener("click", function (evt) {
   clearInputs(cardInfo);
   disableSubmit(cardSubmit, true);
+  validateInputs();
   openModal(cardModal);
 });
+
 function clearInputs(form) {
   form.reset();
 }
@@ -165,7 +167,7 @@ function openModalImage(data) {
   const cardImg = data.link;
   modalImageTitle.textContent = cardCap;
   modalImage.src = cardImg;
-  modalImage.alt = cardCap;
+  modalImage.alt = `Preview image for ${cardCap}`;
 }
 
 imageModalClose.addEventListener("click", () => {
@@ -215,7 +217,6 @@ const validateSubmission = (inputList, buttonElement) => {
 const setEventListeners = (form) => {
   const inputs = Array.from(form.querySelectorAll(".form__input"));
   const button = form.querySelector(".form__button");
-  validateSubmission(inputs, button);
   inputs.forEach((input) => {
     input.addEventListener("input", () => {
       isValid(form, input);
