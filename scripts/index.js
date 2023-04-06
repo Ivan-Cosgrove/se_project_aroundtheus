@@ -80,25 +80,28 @@ const cardForm = cardModalClose.closest(".form");
 const cardInfo = document.querySelector("#card-info");
 const proSubmit = profileModal.querySelector(".form__button");
 const cardSubmit = cardModal.querySelector(".form__button");
+const cardInput = cardModal.querySelector(".form__input_type_title");
+const cardDescInput = cardModal.querySelector(".form__input_type_link");
 
 function fillProfileValues() {
   nameInput.value = profileName.textContent;
   descInput.value = profileDesc.textContent;
 }
-const escapeClose = (evt, modal) => {
-  if (evt.key === "Escape") {
-    closeModal(modal);
-  }
-};
+
 function openModal(modal) {
+  document.addEventListener("keydown", closeWithEscape);
   modal.classList.add("modal-box_opened");
-  document.addEventListener("keydown", (evt) => escapeClose(evt, modal));
 }
 function closeModal(modal) {
+  document.removeEventListener("keydown", closeWithEscape);
   modal.classList.remove("modal-box_opened");
-  document.removeEventListener("keydown", (evt) => escapeClose(evt, modal));
 }
-
+function closeWithEscape(evt) {
+  const activeModal = document.querySelector(".modal-box_opened");
+  if (evt.key === "Escape") {
+    closeModal(activeModal);
+  }
+}
 editButton.addEventListener("click", function (evt) {
   fillProfileValues();
   validateInputs();
@@ -115,17 +118,17 @@ profileModal.addEventListener("submit", function formSubmit(evt) {
   pullProfileValues();
   closeModal(profileModal);
 });
-const outsideClose = (modal) => {
+function closeOnOutsideClick(modal) {
   if (modal.classList.contains("modal-box_opened")) {
     closeModal(modal);
   }
-};
+}
 
 const setClickListeners = () => {
   const modals = Array.from(document.querySelectorAll(".modal-box"));
   modals.forEach((box) => {
-    box.addEventListener("click", (evt) => {
-      outsideClose(evt.target);
+    box.addEventListener("mousedown", (evt) => {
+      closeOnOutsideClick(evt.target);
     });
   });
 };
@@ -137,8 +140,6 @@ cardModalClose.addEventListener("click", function () {
 });
 
 addButton.addEventListener("click", function (evt) {
-  clearInputs(cardInfo);
-  disableSubmit(cardSubmit, true);
   validateInputs();
   openModal(cardModal);
 });
@@ -187,7 +188,7 @@ const showError = (formInput, inputPara, error) => {
   errorText.textContent = error;
 };
 
-const isValid = (form, input) => {
+const toggleInputErrors = (form, input) => {
   if (input.validity.valid) {
     hideError(form, input);
   } else {
@@ -195,19 +196,21 @@ const isValid = (form, input) => {
   }
 };
 
-const invalidInput = (inputList) => {
+const checkForInvalidInput = (inputList) => {
   return inputList.some((input) => {
     return !input.validity.valid;
   });
 };
-function disableSubmit(button, disabled) {
-  button.setAttribute("disabled", disabled);
+function disableSubmit(button) {
+  button.setAttribute("disabled", true);
+  button.classList.add("form__button_disabled");
 }
 function enableSubmit(button) {
-  button.removeAttribute("disabled", true);
+  button.removeAttribute("disabled", false);
+  button.classList.remove("form__button_disabled");
 }
-const validateSubmission = (inputList, buttonElement) => {
-  if (invalidInput(inputList)) {
+const toggleSubmitButton = (inputList, buttonElement) => {
+  if (checkForInvalidInput(inputList)) {
     disableSubmit(buttonElement, true);
   } else {
     enableSubmit(buttonElement, true);
@@ -218,9 +221,10 @@ const setEventListeners = (form) => {
   const inputs = Array.from(form.querySelectorAll(".form__input"));
   const button = form.querySelector(".form__button");
   inputs.forEach((input) => {
+    toggleSubmitButton(inputs, button);
     input.addEventListener("input", () => {
-      isValid(form, input);
-      validateSubmission(inputs, button);
+      toggleInputErrors(form, input);
+      toggleSubmitButton(inputs, button);
     });
   });
 };
@@ -239,9 +243,9 @@ const validateInputs = () => {
   });
 };
 
-// enabling validation by calling enableValidation()
-// pass all the settings on call
-/*  const config = {
+/* enabling validation by calling enableValidation()
+ pass all the settings on call
+  const config = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".form__button",

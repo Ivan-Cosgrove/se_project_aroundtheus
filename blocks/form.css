@@ -89,12 +89,15 @@
   opacity: 0.8;
 }
 
-.form__button:disabled {
+.form__button_disabled {
   background-color: #fff;
   border: 2px solid rgba(0, 0, 0, 0.2);
   color: rgba(0, 0, 0, 0.2);
+  cursor: default;
 }
-
+.form__button_disabled:hover {
+  opacity: 1;
+}
 @media screen and (max-width: 879px) {
   .form__input {
     width: 300px;
