@@ -11,25 +11,24 @@ const config = {
   error: "form__error_visible",
 };
 
-console.log(cardModal);
 /* config.addModal.addEventListener("submit", (evt) =>
   toggleSubmitButton(config.addModal)
 ); */
 
-const hideError = (formInput, inputPara, config) => {
-  const errorText = formInput.querySelector(`.${inputPara.id}-error`);
-  errorText.classList.remove(config.errorClass);
-  inputPara.classList.remove(config.inputErrorClass);
+const hideError = (formInput, input, config) => {
+  const errorText = formInput.querySelector(`.${input.id}-error`);
+  errorText.classList.remove(config.error);
+  input.classList.remove(config.inputError);
   errorText.textContent = "";
 };
-const showError = (formInput, inputPara, config) => {
-  const errorText = formInput.querySelector(`.${inputPara.id}-error`);
-  errorText.classList.add(config.errorClass);
-  inputPara.classList.add(config.inputErrorClass);
-  errorText.textContent = inputPara.validationMessage;
+const showError = (formInput, input, config) => {
+  const errorText = formInput.querySelector(`.${input.id}-error`);
+  errorText.classList.add(config.error);
+  input.classList.add(config.inputError);
+  errorText.textContent = input.validationMessage;
 };
 
-const toggleInputErrors = (form, input) => {
+const toggleInputErrors = (form, input, config) => {
   if (input.validity.valid) {
     hideError(form, input, config);
   } else {
@@ -42,30 +41,30 @@ const checkForInvalidInput = (inputList) => {
     return !input.validity.valid;
   });
 };
-function disableSubmit(button) {
+function disableSubmit(button, config) {
   button.setAttribute("disabled", true);
   button.classList.add(config.inactiveButton);
 }
-function enableSubmit(button) {
-  button.removeAttribute("disabled", false);
+function enableSubmit(button, config) {
+  button.removeAttribute("disabled");
   button.classList.remove(config.inactiveButton);
 }
-const toggleSubmitButton = (inputList, buttonElement) => {
+const toggleSubmitButton = (inputList, buttonElement, config) => {
   if (checkForInvalidInput(inputList)) {
-    disableSubmit(buttonElement, true);
+    disableSubmit(buttonElement, config);
   } else {
-    enableSubmit(buttonElement, true);
+    enableSubmit(buttonElement, config);
   }
 };
 
-const setEventListeners = (form) => {
+const setEventListeners = (form, config) => {
   const inputs = [...form.querySelectorAll(config.input)];
   const button = form.querySelector(config.submitButton);
+  toggleSubmitButton(inputs, button, config);
   inputs.forEach((input) => {
-    // toggleSubmitButton(inputs, button);
     input.addEventListener("input", () => {
-      toggleInputErrors(form, input);
-      toggleSubmitButton(inputs, button);
+      toggleInputErrors(form, input, config);
+      toggleSubmitButton(inputs, button, config);
     });
   });
 };
@@ -73,7 +72,7 @@ const setEventListeners = (form) => {
 const enableValidation = (config) => {
   const siteForms = [...document.querySelectorAll(config.form)];
   siteForms.forEach((form) => {
-    setEventListeners(form);
+    setEventListeners(form, config);
     form.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });

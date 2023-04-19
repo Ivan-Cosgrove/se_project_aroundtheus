@@ -1,3 +1,15 @@
+const indexConfig = {
+  // IDs
+  addModal: "#add-card",
+  // Selectors
+  form: ".form",
+  input: ".form__input",
+  submitButton: ".form__button",
+  // Classes
+  inactiveButton: "form__button_disabled",
+  inputError: "form__input_invalid",
+  error: "form__error_visible",
+};
 //Cards Code
 const initialCards = [
   {
@@ -150,10 +162,14 @@ cardModal.addEventListener("submit", function formSubmit(evt) {
   const cardCap = titleInput.value;
   const cardImg = imgInput.value;
   const cardData = { name: cardCap, link: cardImg };
+  const inputList = [...cardModal.querySelectorAll(indexConfig.input)];
+  const modalButton = cardModal.querySelector(indexConfig.submitButton);
   addCard(getCardTemplate(cardData));
   clearInputs(cardForm);
+  toggleSubmitButton(inputList, modalButton, indexConfig);
   closeModal(cardModal);
 });
+
 const imageModal = document.querySelector(".modal-box__image-container");
 const imageModalClose = imageModal.querySelector(".modal-box__close-button");
 const imageModalBox = imageModal.closest(".modal-box");
@@ -242,13 +258,6 @@ const validateInputs = () => {
 
  enabling validation by calling enableValidation()
  pass all the settings on call
-  const config = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "form__input_invalid",
-  errorClass: "form__error_visible",
-};
+
 
 enableValidation(config); */
