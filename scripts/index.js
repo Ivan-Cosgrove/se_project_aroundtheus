@@ -97,14 +97,13 @@ function closeModal(modal) {
   modal.classList.remove("modal-box_opened");
 }
 function closeWithEscape(evt) {
-  const activeModal = document.querySelector(".modal-box_opened");
   if (evt.key === "Escape") {
+    const activeModal = document.querySelector(".modal-box_opened");
     closeModal(activeModal);
   }
 }
 editButton.addEventListener("click", function (evt) {
   fillProfileValues();
-  validateInputs();
   openModal(profileModal);
 });
 proModalClose.addEventListener("click", function () {
@@ -140,7 +139,6 @@ cardModalClose.addEventListener("click", function () {
 });
 
 addButton.addEventListener("click", function (evt) {
-  validateInputs();
   openModal(cardModal);
 });
 
@@ -156,7 +154,6 @@ cardModal.addEventListener("submit", function formSubmit(evt) {
   clearInputs(cardForm);
   closeModal(cardModal);
 });
-
 const imageModal = document.querySelector(".modal-box__image-container");
 const imageModalClose = imageModal.querySelector(".modal-box__close-button");
 const imageModalBox = imageModal.closest(".modal-box");
@@ -174,7 +171,7 @@ function openModalImage(data) {
 imageModalClose.addEventListener("click", () => {
   closeModal(imageModalBox);
 });
-//Validation Code <--------------------
+/*Validation Code <--------------------
 const hideError = (formInput, inputPara) => {
   const errorText = formInput.querySelector(`.${inputPara.id}-error`);
   errorText.classList.remove("form__error_visible");
@@ -217,8 +214,8 @@ const toggleSubmitButton = (inputList, buttonElement) => {
   }
 };
 
-const setEventListeners = (form) => {
-  const inputs = Array.from(form.querySelectorAll(".form__input"));
+const setEventListeners = (form, config) => {
+  const inputs = [...form.querySelectorAll(".form__input")];
   const button = form.querySelector(".form__button");
   inputs.forEach((input) => {
     toggleSubmitButton(inputs, button);
@@ -243,7 +240,7 @@ const validateInputs = () => {
   });
 };
 
-/* enabling validation by calling enableValidation()
+ enabling validation by calling enableValidation()
  pass all the settings on call
   const config = {
   formSelector: ".form",
