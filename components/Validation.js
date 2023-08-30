@@ -1,3 +1,80 @@
+export default class Validation {
+  constructor(config, form) {
+    this._config = config;
+    this._form = form;
+
+    console.log(this._form);
+  }
+
+  _hideError(input) {
+    const errorText = this._form.querySelector(`.${input.id}-error`);
+    errorText.classList.remove(this._config.error);
+    input.classList.remove(this._config.inputError);
+    errorText.textContent = "";
+  }
+
+  _showError(input) {
+    const errorText = this._form.querySelector(`.${input.id}-error`);
+    errorText.classList.add(this._config.error);
+    input.classList.add(this._config.inputError);
+    errorText.textContent = input.validationMessage;
+  }
+  _toggleInputErrors(input) {
+    // continue the idea with arguments
+    if (input.validity.valid) {
+      this._hideError(input);
+    } else {
+      this._showError(input);
+    }
+  }
+  _disableSubmit() {
+    const button = this._form.querySelector(this._config.submitButton);
+    button.setAttribute("disabled", true);
+    button.classList.add(this._config.inactiveButton);
+  }
+
+  _enableSubmit() {
+    // this._config.submitButton.removeAttribute("disabled");
+    // this._config.submitButton.classList.remove(this._config.inactiveButton);
+  }
+
+  _checkForInvalidInput() {
+    const inputList = [...this._form.querySelectorAll(this._config.input)];
+    inputList.some((input) => {
+      return !input.validity.valid;
+    });
+  }
+
+  _toggleSubmitButton() {
+    if (this._checkForInvalidInput()) {
+      this._disableSubmit();
+    } else {
+      this._enableSubmit();
+    }
+  }
+
+  _setEventListeners() {
+    const inputs = [...this._form.querySelectorAll(this._config.input)];
+
+    this._toggleSubmitButton();
+
+    inputs.forEach((input) => {
+      addEventListener("input", () => {
+        this._toggleInputErrors(input);
+        this._toggleSubmitButton();
+      });
+    });
+  }
+
+  enableValidation() {
+    this._setEventListeners();
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+    });
+  }
+}
+
+/* 
 const config = {
   // IDs
   addModal: "#add-card",
@@ -10,10 +87,6 @@ const config = {
   inputError: "form__input_invalid",
   error: "form__error_visible",
 };
-
-/* config.addModal.addEventListener("submit", (evt) =>
-  toggleSubmitButton(config.addModal)
-); */
 
 const hideError = (formInput, input, config) => {
   const errorText = formInput.querySelector(`.${input.id}-error`);
@@ -78,4 +151,4 @@ const enableValidation = (config) => {
     });
   });
 };
-enableValidation(config);
+enableValidation(config); */
