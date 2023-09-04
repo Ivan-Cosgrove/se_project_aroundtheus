@@ -1,25 +1,11 @@
 export default class Card {
-  constructor({ name, link }, template) {
+  constructor({ name, link }, template, viewImage) {
     this._name = name;
     this._link = link;
     this._template = template;
+    this._viewImage = viewImage;
   }
-  /* _viewImage() {
-   if(this._cardElement.classList.contains('card__image') {
 
-  }
-  _openModalImage() {
-    const imageModal = document.querySelector(".modal-box__image-container");
-const imageModalClose = imageModal.querySelector(".modal-box__close-button");
-   const modalImage = imageModal.querySelector(".modal-box__image");
-const modalImageTitle = document.querySelector(".modal-box__caption")
-    openModal();
-    const cardCap = this._name;
-    const cardImg = this._link;
-    modalImageTitle.textContent = cardCap;
-    modalImage.src = cardImg;
-    modalImage.alt = `Preview image for ${cardCap}`;
-  } */
   _toggleLike() {
     this._cardElement
       .querySelector(".card__button-like")
@@ -33,14 +19,15 @@ const modalImageTitle = document.querySelector(".modal-box__caption")
     const deleteButton = this._cardElement.querySelector(
       ".card__button-delete"
     );
-    const fullImage = this._cardElement.querySelector(
-      ".modal-box__image-container"
-    );
+    const cardImage = this._cardElement.querySelector(".card__image");
     cardLike.addEventListener("click", () => {
       this._toggleLike();
     });
     deleteButton.addEventListener("click", () => {
       this._removeCard();
+    });
+    cardImage.addEventListener("click", () => {
+      this._viewImage(this);
     });
   }
 
@@ -62,3 +49,19 @@ const modalImageTitle = document.querySelector(".modal-box__caption")
     return this._cardElement;
   }
 }
+/* _viewImage() {
+   if(this._cardElement.classList.contains('card__image') {
+
+  }
+  _openModalImage() {
+    const imageModal = document.querySelector(".modal-box__image-container");
+const imageModalClose = imageModal.querySelector(".modal-box__close-button");
+   const modalImage = imageModal.querySelector(".modal-box__image");
+const modalImageTitle = document.querySelector(".modal-box__caption")
+    openModal();
+    const cardCap = this._name;
+    const cardImg = this._link;
+    modalImageTitle.textContent = cardCap;
+    modalImage.src = cardImg;
+    modalImage.alt = `Preview image for ${cardCap}`;
+  } */

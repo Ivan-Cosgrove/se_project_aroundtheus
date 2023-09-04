@@ -34,8 +34,9 @@ export default class Validation {
   }
 
   _enableSubmit() {
-    // this._config.submitButton.removeAttribute("disabled");
-    // this._config.submitButton.classList.remove(this._config.inactiveButton);
+    const button = this._form.querySelector(this._config.submitButton);
+    button.removeAttribute("disabled");
+    button.classList.remove(this._config.inactiveButton);
   }
 
   _checkForInvalidInput() {

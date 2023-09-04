@@ -1,7 +1,11 @@
+// console.log("debug-break");
+
 import Card from "../components/Card.js";
 import Validation from "../components/Validation.js";
 import * as utilities from "../utility/utility.js";
-utilities;
+import { closeModal } from "../utility/utility.js";
+import { openModal } from "../utility/utility.js";
+
 const config = {
   // IDs
   addModal: "#add-card",
@@ -56,8 +60,8 @@ const initialCards = [
   },
 ];
 
-function getCardTemplate(data) {
-  /*  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+/* function getCardTemplate(data) {
+    const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardName = cardElement.querySelector(".card__title");
   const cardImage = cardElement.querySelector(".card__image");
   const cardCap = data.name;
@@ -73,19 +77,19 @@ function getCardTemplate(data) {
   deleteButton.addEventListener("click", () => {
     const card = deleteButton.closest(".card");
     card.remove();
-  });*/
+  });
   cardImage.addEventListener("click", () => {
     openModalImage(data);
   });
   return cardElement;
-}
+}*/
 
 function addCard(cardElement) {
   cardList.prepend(cardElement);
 }
 
 initialCards.reverse().forEach((card) => {
-  const cardElement = new Card(card, "#card");
+  const cardElement = new Card(card, "#card", openModalImage);
   addCard(cardElement.createCard());
 });
 
@@ -167,35 +171,33 @@ addButton.addEventListener("click", function (evt) {
 function clearInputs(form) {
   form.reset();
 }
-const toggleSubmitButton = (inputList, buttonElement) => {
+/*  const toggleSubmitButton = (inputList, buttonElement) => {
   if (checkForInvalidInput(inputList)) {
     disableSubmit(buttonElement, true);
   } else {
     enableSubmit(buttonElement, true);
   }
-};
-cardModal.addEventListener("submit", function formSubmit(evt) {
+}; */
+/*  cardModal.addEventListener("submit", function formSubmit(evt) {
   const cardCap = titleInput.value;
   const cardImg = imgInput.value;
   const cardData = { name: cardCap, link: cardImg };
-  const inputList = [...cardModal.querySelectorAll(config.input)];
-  const modalButton = cardModal.querySelector(config.submitButton);
+  const card = new Card(cardData, "#card");
   evt.preventDefault();
-  addCard(getCardTemplate(cardData));
+  addCard(card.createCard());
   clearInputs(cardForm);
-  toggleSubmitButton(inputList, modalButton);
   closeModal(cardModal);
-});
+});*/
 
 const imageModal = document.querySelector(".modal-box__image-container");
 const imageModalClose = imageModal.querySelector(".modal-box__close-button");
 const imageModalBox = imageModal.closest(".modal-box");
 const modalImage = imageModal.querySelector(".modal-box__image");
 const modalImageTitle = document.querySelector(".modal-box__caption");
-function openModalImage(data) {
+export function openModalImage(data) {
   openModal(imageModalBox);
-  const cardCap = data.name;
-  const cardImg = data.link;
+  const cardCap = data._name;
+  const cardImg = data._link;
   modalImageTitle.textContent = cardCap;
   modalImage.src = cardImg;
   modalImage.alt = `Preview image for ${cardCap}`;
