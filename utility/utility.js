@@ -1,6 +1,7 @@
 import Card from "../components/Card.js";
 import { openModalImage } from "../pages/index.js";
-
+import Validation from "../components/FormValidator.js";
+import { config } from "../pages/index.js";
 const cardList = document.querySelector(".cards__list");
 const profileModal = document.querySelector("#edit-profile");
 const cardModal = document.querySelector("#add-card");
@@ -14,6 +15,8 @@ const descInput = profileModal.querySelector(".form__input_type_description");
 const cardForm = cardModalClose.closest(".form");
 
 export function openModal(modal) {
+  const valid = new Validation(config, modal);
+  valid.enableValidation();
   document.addEventListener("keydown", closeWithEscape);
   modal.classList.add("modal-box_opened");
 }
@@ -76,6 +79,8 @@ cardModalClose.addEventListener("click", function () {
   closeModal(cardModal);
 });
 addButton.addEventListener("click", function (evt) {
+  const valid = new Validation(config, cardModal);
+  valid.toggleSubmitButton();
   openModal(cardModal);
 });
 function addCard(cardElement) {

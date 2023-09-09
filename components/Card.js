@@ -13,6 +13,7 @@ export default class Card {
   }
   _removeCard() {
     this._cardElement.remove();
+    this._cardElement = null;
   }
   _setEventListeners() {
     const cardLike = this._cardElement.querySelector(".card__button-like");
@@ -49,19 +50,3 @@ export default class Card {
     return this._cardElement;
   }
 }
-/* _viewImage() {
-   if(this._cardElement.classList.contains('card__image') {
-
-  }
-  _openModalImage() {
-    const imageModal = document.querySelector(".modal-box__image-container");
-const imageModalClose = imageModal.querySelector(".modal-box__close-button");
-   const modalImage = imageModal.querySelector(".modal-box__image");
-const modalImageTitle = document.querySelector(".modal-box__caption")
-    openModal();
-    const cardCap = this._name;
-    const cardImg = this._link;
-    modalImageTitle.textContent = cardCap;
-    modalImage.src = cardImg;
-    modalImage.alt = `Preview image for ${cardCap}`;
-  } */
