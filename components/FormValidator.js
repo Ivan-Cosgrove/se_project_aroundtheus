@@ -1,3 +1,5 @@
+// console.log("debug");
+
 export default class FormValidator {
   constructor(config, form) {
     this._config = config;
@@ -26,12 +28,14 @@ export default class FormValidator {
     }
   }
   _disableSubmit() {
+    console.log("debug-disable");
     const button = this._form.querySelector(this._config.submitButton);
     button.setAttribute("disabled", true);
     button.classList.add(this._config.inactiveButton);
   }
 
   _enableSubmit() {
+    console.log("debug-enable");
     const button = this._form.querySelector(this._config.submitButton);
     button.removeAttribute("disabled");
     button.classList.remove(this._config.inactiveButton);
@@ -45,7 +49,7 @@ export default class FormValidator {
   }
 
   toggleSubmitButton() {
-    if (this._checkForInvalidInput()) {
+    if (this._checkForInvalidInput) {
       this._disableSubmit();
     } else {
       this._enableSubmit();
@@ -57,6 +61,7 @@ export default class FormValidator {
 
     inputs.forEach((input) => {
       addEventListener("input", () => {
+        console.log("debug");
         this._toggleInputErrors(input);
         this.toggleSubmitButton();
       });

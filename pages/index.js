@@ -106,12 +106,13 @@ imageModalClose.addEventListener("click", () => {
 const validateEditModal = new Validation(config, profileModal);
 validateEditModal.enableValidation();
 
-const validateAddModal = new Validation(config, cardModal);
+export const validateAddModal = new Validation(config, cardModal);
 validateAddModal.enableValidation();
 
 // const siteForms = document.querySelectorAll(".form");
 
 // siteForms.forEach((form) => {
 //   const validation = new Validation(config, form);
+//   validation.toggleSubmitButton();
 //   validation.enableValidation();
 // });
