@@ -43,13 +43,13 @@ export default class FormValidator {
 
   _checkForInvalidInput() {
     const inputList = [...this._form.querySelectorAll(this._config.input)];
-    inputList.some((input) => {
+    return inputList.some((input) => {
       return !input.validity.valid;
     });
   }
 
   toggleSubmitButton() {
-    if (this._checkForInvalidInput) {
+    if (this._checkForInvalidInput()) {
       this._disableSubmit();
     } else {
       this._enableSubmit();

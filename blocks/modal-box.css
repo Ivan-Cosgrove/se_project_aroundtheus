@@ -73,9 +73,9 @@
     max-width: 282px;
     max-height: 322px;
   }
-  .modal-box__button {
+  .modal-box__close-button {
     transform: scale(calc(26 / 22));
-    right: 0;
-    top: -60px;
+    right: 15px;
+    top: -63px;
   }
 }

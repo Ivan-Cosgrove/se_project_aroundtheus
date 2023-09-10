@@ -109,16 +109,29 @@
 
 @media screen and (max-width: 420px) {
   .form__title {
-    margin: 25px 22px 50px;
+    margin: 25px 22px 46px;
+    font-family: Inter;
     font-size: 18px;
-    line-height: 1.2;
+    line-height: 1.23;
+  }
+
+  .form {
+    margin: 0 32px 0;
   }
 
   .form__input {
     width: 238px;
+    margin: 30px 22px 0;
+    padding: 0;
+  }
+
+  .form__error {
+    margin: 0;
+    padding: 5px 0 0;
   }
 
   .form__button {
     width: 238px;
+    margin: 46px 22px 25px;
   }
 }
