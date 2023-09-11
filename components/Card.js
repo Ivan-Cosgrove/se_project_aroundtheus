@@ -1,7 +1,7 @@
 export default class Card {
   constructor({ name, link }, template, viewImage) {
-    this._name = name;
-    this._link = link;
+    this.name = name;
+    this.link = link;
     this._template = template;
     this._viewImage = viewImage;
   }
@@ -39,8 +39,8 @@ export default class Card {
       .cloneNode(true);
     const cardName = this._cardElement.querySelector(".card__title");
     const cardImage = this._cardElement.querySelector(".card__image");
-    const cardCap = this._name;
-    const cardImg = this._link;
+    const cardCap = this.name;
+    const cardImg = this.link;
     cardName.textContent = cardCap;
     cardImage.src = cardImg;
     cardImage.alt = cardCap;
