@@ -108,6 +108,10 @@
 }
 
 @media screen and (max-width: 420px) {
+  .form {
+    margin: 0 32px 0;
+  }
+
   .form__title {
     margin: 25px 22px 46px;
     font-family: Inter;
@@ -115,14 +119,14 @@
     line-height: 1.23;
   }
 
-  .form {
-    margin: 0 32px 0;
-  }
-
   .form__input {
     width: 238px;
     margin: 30px 22px 0;
     padding: 0;
+  }
+
+  .form__input_invalid + .form__error-visible {
+    margin-bottom: 0;
   }
 
   .form__error {
@@ -134,4 +138,8 @@
     width: 238px;
     margin: 46px 22px 25px;
   }
+}
+
+.form__error_visible + .form__button {
+  margin-top: 0;
 }
