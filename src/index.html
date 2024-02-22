@@ -6,8 +6,8 @@
     <meta name="description" content="Image gallery of notable U.S. areas" />
     <meta name="author" content="Ivan Cosgrove" />
     <meta name="keywords" content="gallery, pictures, landmarks" />
-    <link rel="stylesheet" href="./pages/index.css" />
-    <link rel="icon" href="./favicon.ico" />
+    <!--link rel="stylesheet" href="./pages/index.css" /-->
+    <link rel="icon" href="./images/favicon.ico" />
 
     <title>Around the U.S. Gallery</title>
   </head>
@@ -16,7 +16,7 @@
     <header class="header">
       <img
         class="header__logo"
-        src="./images/vectors/header.svg"
+        src="<%=require('./images/vectors/header.svg')%>"
         alt="Around the U.S."
       />
     </header>
@@ -24,7 +24,7 @@
       <section class="profile">
         <img
           class="profile__image"
-          src="./images/jacques-cousteau.jpg"
+          src="<%=require('./images/jacques-cousteau.jpg')%>"
           alt="Profile
         image"
         />
@@ -33,7 +33,7 @@
           <button class="profile__buttons-edit" type="button">
             <img
               class="profile__buttons-edit-icon"
-              src="./images/vectors/pen.svg"
+              src="<%=require('./images/vectors/pen.svg')%>"
               alt="Edit profile"
             />
           </button>
@@ -47,7 +47,7 @@
           >
             <button class="modal-box__close-button" type="button">
               <img
-                src="./images/vectors/close-icon-26x26.svg"
+                src="<%=require('./images/vectors/close-icon-26x26.svg')%>"
                 alt="Close edit window"
               />
             </button>
@@ -80,7 +80,7 @@
         <button class="profile__buttons-add" type="button">
           <img
             class="profile__buttons-add-icon"
-            src="./images/vectors/plus.svg"
+            src="<%=require('./images/vectors/plus.svg')%>"
             alt="Add photo"
           />
         </button>
@@ -89,7 +89,7 @@
           <form class="modal-box__container form" id="card-info">
             <button class="modal-box__close-button" type="button">
               <img
-                src="./images/vectors/close-icon-26x26.svg"
+                src="<%=require('./images/vectors/close-icon-26x26.svg')%>"
                 alt="Close edit window"
               />
             </button>
@@ -103,6 +103,7 @@
                 required
                 minlength="1"
                 maxlength="30"
+                name="name"
               />
               <p class="form__error title-error form__error_visible"></p>
 
@@ -112,6 +113,7 @@
                 placeholder="Image link"
                 id="image-link"
                 required
+                name="link"
               />
               <p class="form__error image-link-error form__error_visible"></p>
               <button class="form__button" type="submit">Create</button>
@@ -129,10 +131,10 @@
     </footer>
 
     <div class="modal-box">
-      <div class="modal-box__image-container">
+      <div class="modal-box__image-container" id="modal-template">
         <img
           class="modal-box__close-button modal-box__image-close-button"
-          src="./images/vectors/close-icon-26x26.svg"
+          src="<%=require('./images/vectors/close-icon-26x26.svg')%>"
           alt="Close image"
         />
         <img class="modal-box__image" src="#" alt="#" />
@@ -142,11 +144,7 @@
 
     <template id="card">
       <li class="card">
-        <img
-          class="card__image"
-          src="./images/yosemite.jpg"
-          alt="Picture of Yosemite Valley"
-        />
+        <img class="card__image" src="#" alt="#" />
         <button class="card__button-delete"></button>
         <div class="card__description">
           <h2 class="card__title">Yosemite Valley</h2>
@@ -154,7 +152,7 @@
         </div></li
     ></template>
 
-    <script src="./pages/index.js" type="module" defer></script>
+    <!--script src="./pages/index.js" type="module" defer></script-->
     <!--script src="./scripts/validate.js" defer></script-->
   </body>
 </html>

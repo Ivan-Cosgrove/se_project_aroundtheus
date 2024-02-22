@@ -8,7 +8,7 @@ const profileName = document.querySelector(".profile__title");
 const profileDesc = document.querySelector(".profile__subtitle");
 const nameInput = profileModal.querySelector(".form__input_type_name");
 const descInput = profileModal.querySelector(".form__input_type_description");
-const cardForm = cardModalClose.closest(".form");
+const cardModalForm = cardModalClose.closest(".form");
 
 export function openModal(modal) {
   document.addEventListener("keydown", closeWithEscape);
