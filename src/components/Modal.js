@@ -4,7 +4,7 @@ export default class Modal {
   }
 
   _closeWithEscape(evt) {
-    if (evt.key === "Escape" || evt.key === "5") {
+    if (evt.key === "Escape") {
       this.close();
     }
   }
@@ -25,7 +25,9 @@ export default class Modal {
 
   setEventListeners() {
     const button = this._modal.querySelector(".modal-box__close-button");
-    button.addEventListener("click", () => this.close());
+    button.addEventListener("click", () => {
+      this.close();
+    });
     this._modal.addEventListener("click", (evt) => {
       if (evt.target.classList.contains("modal-box_opened")) {
         this.close();

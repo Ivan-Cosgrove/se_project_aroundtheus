@@ -10,6 +10,7 @@ import UserInfo from "../components/UserInfo.js";
 import * as utilities from "../utility/utility.js";
 import * as constants from "../utility/constants.js";
 const modalImage = new ImageModal(constants.imageModal, constants.modalImage);
+modalImage.setEventListeners();
 const openModalImage = (data) => {
   modalImage.open(data);
 };
