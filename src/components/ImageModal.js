@@ -14,5 +14,6 @@ export default class ImageModal extends Modal {
     modalImage.src = cardImg;
     modalImage.alt = `Preview image for ${cardCap}`;
     super.open();
+    return data;
   }
 }
