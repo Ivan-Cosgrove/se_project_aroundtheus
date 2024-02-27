@@ -26,15 +26,19 @@ cardRenderer.renderItems();
 
 const userInfo = new UserInfo(constants.profileName, constants.profileDesc);
 
-const cardForm = new FormModal(constants.cardModal, (data) => {
+const cardModal = new FormModal(constants.cardModal, (data) => {
+  console.log(data);
   cardRenderer.addItem(createCard(data));
 });
-cardForm.setEventListeners();
+cardModal.setEventListeners();
 
-const profileForm = new FormModal(constants.profileModal, () => {
-  userInfo.setUserInfo();
+const profileModal = new FormModal(constants.profileModal, () => {
+  userInfo.setUserInfo({
+    name: constants.nameInput.value,
+    description: constants.descInput.value,
+  });
 });
-profileForm.setEventListeners();
+profileModal.setEventListeners();
 
 // Card Code
 
@@ -46,13 +50,17 @@ function createCard(card) {
 //Modal Box Code
 
 constants.editButton.addEventListener("click", function () {
-  profileForm.open();
+  profileModal.open();
   userInfo.getUserInfo();
+  const name = userInfo.getUserInfo().name;
+  const desc = userInfo.getUserInfo().description;
+  constants.nameInput.value = name;
+  constants.descInput.value = desc;
   validateEditModal.toggleSubmitButton();
 });
 
 constants.addButton.addEventListener("click", function () {
-  cardForm.open();
+  cardModal.open();
   validateAddModal.toggleSubmitButton();
 });
 const validateEditModal = new FormValidator(

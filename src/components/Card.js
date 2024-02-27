@@ -33,10 +33,8 @@ export default class Card {
   }
 
   createCard() {
-    this._cardTemplate = document.querySelector("#card").content;
-    this._cardElement = this._cardTemplate
-      .querySelector(".card")
-      .cloneNode(true);
+    this._template = document.querySelector(this._template).content;
+    this._cardElement = this._template.querySelector(".card").cloneNode(true);
     const cardName = this._cardElement.querySelector(".card__title");
     const cardImage = this._cardElement.querySelector(".card__image");
     const cardCap = this.name;

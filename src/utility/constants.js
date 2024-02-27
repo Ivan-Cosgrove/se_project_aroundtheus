@@ -7,7 +7,10 @@ export const editButton = document.querySelector(".profile__buttons-edit");
 export const addButton = document.querySelector(".profile__buttons-add");
 export const imageModal = document.querySelector("#display-image");
 export const modalImage = imageModal.querySelector(".modal-box__image");
-
+export const nameInput = document.querySelector(".form__input_type_name");
+export const descInput = document.querySelector(
+  ".form__input_type_description"
+);
 export const initialCards = [
   {
     name: "Yosemite Valley",
