@@ -13,7 +13,6 @@ export default class FormModal extends Modal {
     inputs.forEach(({ name, value }) => {
       inputsObject[name] = value;
     });
-    console.log(inputsObject);
     return inputsObject;
   }
 

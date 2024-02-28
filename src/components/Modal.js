@@ -1,25 +1,23 @@
 export default class Modal {
   constructor({ modal }) {
     this._modal = modal;
+    this._openModal = document.querySelector(".modal-box_opened");
   }
 
-  _closeWithEscape(evt) {
+  _closeWithEscape = (evt) => {
+    console.log(this);
     if (evt.key === "Escape") {
       this.close();
     }
-  }
+  };
 
   open() {
-    document.addEventListener("keydown", (evt) => {
-      this._closeWithEscape(evt);
-    });
+    document.addEventListener("keydown", this._closeWithEscape);
     this._modal.classList.add("modal-box_opened");
   }
 
   close() {
-    document.removeEventListener("keydown", (evt) => {
-      this._closeWithEscape(evt);
-    });
+    document.removeEventListener("keydown", this._closeWithEscape);
     this._modal.classList.remove("modal-box_opened");
   }
 

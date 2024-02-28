@@ -20,7 +20,6 @@ export default class Validation {
     errorText.textContent = input.validationMessage;
   }
   _toggleInputErrors(input) {
-    // continue the idea with arguments
     if (input.validity.valid) {
       this._hideError(input);
     } else {
@@ -60,7 +59,7 @@ export default class Validation {
     this._toggleSubmitButton();
 
     inputs.forEach((input) => {
-      addEventListener("input", () => {
+      input.addEventListener("input", () => {
         this._toggleInputErrors(input);
         this._toggleSubmitButton();
       });
