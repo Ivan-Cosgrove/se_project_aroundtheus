@@ -2,17 +2,20 @@
 
 import "./index.css";
 import Card from "../components/Card.js";
-import FormModal from "../components/FormModal.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
-import ImageModal from "../components/ImageModal.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import * as utilities from "../utility/utility.js";
 import * as constants from "../utility/constants.js";
-const modalImage = new ImageModal(constants.imageModal, constants.modalImage);
-modalImage.setEventListeners();
-const openModalImage = (data) => {
-  modalImage.open(data);
+const popupImage = new PopupWithImage(
+  constants.popupWithImage,
+  constants.popupImage
+);
+popupImage.setEventListeners();
+const openpopupImage = (data) => {
+  popupImage.open(data);
 };
 const renderCard = (card) => {
   cardRenderer.addItem(createCard(card));
@@ -26,13 +29,13 @@ cardRenderer.renderItems();
 
 const userInfo = new UserInfo(constants.profileName, constants.profileDesc);
 
-const cardModal = new FormModal(constants.cardModal, (data) => {
+const cardModal = new PopupWithForm(constants.cardModal, (data) => {
   console.log(data);
   cardRenderer.addItem(createCard(data));
 });
 cardModal.setEventListeners();
 
-const profileModal = new FormModal(constants.profileModal, (data) => {
+const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   userInfo.setUserInfo(data);
 });
 profileModal.setEventListeners();
@@ -40,7 +43,7 @@ profileModal.setEventListeners();
 // Card Code
 
 function createCard(card) {
-  const initCard = new Card(card, "#card", openModalImage);
+  const initCard = new Card(card, "#card", openpopupImage);
   return initCard.createCard();
 }
 
@@ -49,7 +52,6 @@ function createCard(card) {
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
   const { name, description } = userInfo.getUserInfo();
-  console.log(userInfo.getUserInfo());
   constants.nameInput.value = name;
   constants.descInput.value = description;
   validateEditModal.toggleSubmitButton();

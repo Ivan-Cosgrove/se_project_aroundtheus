@@ -10,7 +10,6 @@ export default class UserInfo {
     this._name = this._title.textContent;
     this._description = this._subtitle.textContent;
     const userData = { name: this._name, description: this._description };
-    console.log(userData);
     return userData;
   }
 
@@ -20,6 +19,5 @@ export default class UserInfo {
     const formData = { name: this._name, description: this._description };
     this._title.textContent = formData.name;
     this._subtitle.textContent = formData.description;
-    console.log(data);
   }
 }

@@ -1,13 +1,13 @@
-import Modal from "./Modal.js";
-export default class FormModal extends Modal {
-  constructor(modal, formSubmit) {
-    super({ modal });
-    this._modalForm = this._modal.querySelector(".form");
+import Popup from "./Popup.js";
+export default class PopupWithForm extends Popup {
+  constructor(popup, formSubmit) {
+    super({ popup });
+    this._popupForm = this._popup.querySelector(".form");
     this._formSubmit = formSubmit;
   }
 
   _getInputValues() {
-    const inputs = this._modal.querySelectorAll(".form__input");
+    const inputs = this._popup.querySelectorAll(".form__input");
     const inputsObject = {};
 
     inputs.forEach(({ name, value }) => {
@@ -17,12 +17,12 @@ export default class FormModal extends Modal {
   }
 
   close() {
-    this._modalForm.reset();
+    this._popupForm.reset();
     super.close();
   }
 
   setEventListeners() {
-    this._modalForm.addEventListener("submit", (evt) => {
+    this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._formSubmit(this._getInputValues());
       this.close();

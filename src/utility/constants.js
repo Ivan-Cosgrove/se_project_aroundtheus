@@ -5,8 +5,8 @@ export const cardModal = document.querySelector("#add-card");
 export const cardList = document.querySelector(".cards__list");
 export const editButton = document.querySelector(".profile__buttons-edit");
 export const addButton = document.querySelector(".profile__buttons-add");
-export const imageModal = document.querySelector("#display-image");
-export const modalImage = imageModal.querySelector(".modal-box__image");
+export const popupWithImage = document.querySelector("#display-image");
+export const popupImage = popupWithImage.querySelector(".modal-box__image");
 export const nameInput = document.querySelector(".form__input_type_name");
 export const descInput = document.querySelector(
   ".form__input_type_description"
