@@ -32,11 +32,8 @@ const cardModal = new FormModal(constants.cardModal, (data) => {
 });
 cardModal.setEventListeners();
 
-const profileModal = new FormModal(constants.profileModal, () => {
-  userInfo.setUserInfo({
-    name: constants.nameInput.value,
-    description: constants.descInput.value,
-  });
+const profileModal = new FormModal(constants.profileModal, (data) => {
+  userInfo.setUserInfo(data);
 });
 profileModal.setEventListeners();
 
@@ -51,11 +48,10 @@ function createCard(card) {
 
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
-  userInfo.getUserInfo();
-  const name = userInfo.getUserInfo().name;
-  const desc = userInfo.getUserInfo().description;
+  const { name, description } = userInfo.getUserInfo();
+  console.log(userInfo.getUserInfo());
   constants.nameInput.value = name;
-  constants.descInput.value = desc;
+  constants.descInput.value = description;
   validateEditModal.toggleSubmitButton();
 });
 
