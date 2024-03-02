@@ -2,14 +2,13 @@ export default class UserInfo {
   constructor({ name, description }) {
     this._name = name;
     this._description = description;
-    this._title = document.querySelector(".profile__title");
-    this._subtitle = document.querySelector(".profile__subtitle");
   }
 
   getUserInfo() {
-    this._name = this._title.textContent;
-    this._description = this._subtitle.textContent;
-    const userData = { name: this._name, description: this._description };
+    const userData = {
+      name: this._name.value,
+      description: this._description.value,
+    };
     return userData;
   }
 

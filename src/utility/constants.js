@@ -43,6 +43,8 @@ export const config = {
   editModal: "#edit-profile",
   addModal: "#add-card",
   // Selectors
+  name: ".profile__title",
+  description: ".profile__subtitle",
   form: ".form",
   input: ".form__input",
   submitButton: ".form__button",
