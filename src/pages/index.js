@@ -14,7 +14,7 @@ const popupImage = new PopupWithImage(
   constants.popupImage
 );
 popupImage.setEventListeners();
-const openpopupImage = (data) => {
+const openPopupImage = (data) => {
   popupImage.open(data);
 };
 const renderCard = (card) => {
@@ -31,9 +31,7 @@ const userInfo = new UserInfo({
   name: constants.profileName,
   description: constants.profileDesc,
 });
-console.log(userInfo);
 const cardModal = new PopupWithForm(constants.cardModal, (data) => {
-  console.log(data);
   cardRenderer.addItem(createCard(data));
 });
 cardModal.setEventListeners();
@@ -46,7 +44,7 @@ profileModal.setEventListeners();
 // Card Code
 
 function createCard(card) {
-  const initCard = new Card(card, "#card", openpopupImage);
+  const initCard = new Card(card, "#card", openPopupImage);
   return initCard.createCard();
 }
 
@@ -55,8 +53,6 @@ function createCard(card) {
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
   const profileInfo = userInfo.getUserInfo();
-  console.log("debug-break");
-  console.log(profileInfo);
   constants.nameInput.value = profileInfo.name;
   constants.descInput.value = profileInfo.description;
   validateEditModal.toggleSubmitButton();
