@@ -40,8 +40,6 @@ cardModal.setEventListeners();
 
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   userInfo.setUserInfo(data);
-  constants.profileName.textContent = data.name;
-  constants.profileDesc.textContent = data.description;
 });
 profileModal.setEventListeners();
 
@@ -59,8 +57,8 @@ constants.editButton.addEventListener("click", function () {
   const profileInfo = userInfo.getUserInfo();
   console.log("debug-break");
   console.log(profileInfo);
-  constants.nameInput.value = profileInfo.name.textContent;
-  constants.descInput.value = profileInfo.description.textContent;
+  constants.nameInput.value = profileInfo.name;
+  constants.descInput.value = profileInfo.description;
   validateEditModal.toggleSubmitButton();
 });
 
