@@ -27,7 +27,10 @@ const cardRenderer = new Section(
 
 cardRenderer.renderItems();
 
-const userInfo = new UserInfo(constants.config);
+const userInfo = new UserInfo({
+  name: constants.profileName,
+  description: constants.profileDesc,
+});
 console.log(userInfo);
 const cardModal = new PopupWithForm(constants.cardModal, (data) => {
   console.log(data);
@@ -37,6 +40,8 @@ cardModal.setEventListeners();
 
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   userInfo.setUserInfo(data);
+  constants.profileName.textContent = data.name;
+  constants.profileDesc.textContent = data.description;
 });
 profileModal.setEventListeners();
 
@@ -51,9 +56,11 @@ function createCard(card) {
 
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
-  const { name, description } = userInfo.getUserInfo();
-  constants.nameInput.value = name;
-  constants.nameInput.value = description;
+  const profileInfo = userInfo.getUserInfo();
+  console.log("debug-break");
+  console.log(profileInfo);
+  constants.nameInput.value = profileInfo.name.textContent;
+  constants.descInput.value = profileInfo.description.textContent;
   validateEditModal.toggleSubmitButton();
 });
 
