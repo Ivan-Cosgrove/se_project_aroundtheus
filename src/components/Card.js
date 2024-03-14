@@ -1,9 +1,10 @@
 export default class Card {
-  constructor({ name, link }, template, viewImage) {
+  constructor({ name, link }, template, viewImage, handleDelete) {
     this.name = name;
     this.link = link;
     this._template = template;
     this._viewImage = viewImage;
+    this._handleDelete = handleDelete;
   }
 
   _toggleLike() {
@@ -25,7 +26,9 @@ export default class Card {
       this._toggleLike();
     });
     deleteButton.addEventListener("click", () => {
-      this._removeCard();
+      this._handleDelete(this);
+      console.log(this._cardElement);
+      return this._cardElement;
     });
     cardImage.addEventListener("click", () => {
       this._viewImage(this);

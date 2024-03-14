@@ -53,7 +53,6 @@ export default class FormValidator {
 
   _setEventListeners() {
     const inputs = [...this._form.querySelectorAll(this._config.input)];
-
     inputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._toggleInputErrors(input);

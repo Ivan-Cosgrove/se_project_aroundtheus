@@ -44,27 +44,32 @@ export default class API {
     fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
       method: "PATCH",
       headers: {
+        "content-type": "application/JSON",
         authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
       },
       body: JSON.stringify(data),
     });
   }
 
-  updateProfilePicture() {
+  updateProfilePicture(data) {
     fetch("https://around-api.en.tripleten-services.com/v1/users/me/avatar", {
       method: "PATCH",
       headers: {
         authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
+        "content-type": "application/JSON",
       },
+      body: JSON.stringify(data),
     });
   }
 
-  sendCard() {
+  sendCard(data) {
     return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
       method: "POST",
       headers: {
+        "content-type": "application/JSON",
         authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
       },
+      body: JSON.stringify(data),
     });
   }
 
@@ -76,6 +81,7 @@ export default class API {
         headers: {
           authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
         },
+        body: JSON.stringify(cardID),
       }
     );
   }
@@ -95,6 +101,7 @@ export default class API {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/:${cardID}/likes`,
       {
+        method: "DELETE",
         headers: {
           authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
         },

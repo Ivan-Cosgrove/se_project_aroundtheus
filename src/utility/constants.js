@@ -11,6 +11,13 @@ export const nameInput = document.querySelector(".form__input_type_name");
 export const descInput = document.querySelector(
   ".form__input_type_description"
 );
+export const avatar = document.querySelector(".profile__image");
+export const changeAvatar = document.querySelector("#change-avatar");
+export const changeAvatarButton = document.querySelector(
+  ".profile__buttons-image-edit"
+);
+export const deletePopup = document.querySelector("#delete-modal");
+export const deleteAnswer = document.querySelector("#confirmation");
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -42,6 +49,7 @@ export const config = {
   // IDs
   editModal: "#edit-profile",
   addModal: "#add-card",
+  changeAvatar: "#change-avatar",
   // Selectors
   name: ".profile__title",
   description: ".profile__subtitle",

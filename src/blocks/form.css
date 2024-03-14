@@ -39,6 +39,13 @@
   text-align: left;
 }
 
+.form__select {
+  bottom: 55%;
+  left: 45%;
+
+  position: relative;
+}
+
 .form__input_invalid {
   border-color: #f00;
 }

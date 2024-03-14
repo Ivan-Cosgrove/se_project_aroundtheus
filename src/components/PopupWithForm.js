@@ -13,7 +13,6 @@ export default class PopupWithForm extends Popup {
     inputs.forEach(({ name, value }) => {
       inputsObject[name] = value;
     });
-    console.log(inputsObject);
     return inputsObject;
   }
 
@@ -22,10 +21,15 @@ export default class PopupWithForm extends Popup {
     super.close();
   }
 
+  _reloadPage() {
+    location.reload();
+  }
+
   setEventListeners() {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._formSubmit(this._getInputValues());
+      // setTimeout(this._reloadPage, 1000);
       this.close();
     });
     super.setEventListeners();
