@@ -43,8 +43,19 @@ deletePopup.setEventListeners();
 
 const openDeletePopup = (data) => {
   deletePopup.open();
+  console.log(data);
   constants.deleteID.value = data._id;
 };
+
+function sendLike(data) {
+  if (data.isLiked) {
+    alert(`You removed your like for ${data.name}`);
+    api.removeLike(data._id, data);
+  } else {
+    alert(`You liked ${data.name}`);
+    api.likeCard(data._id, data);
+  }
+}
 
 const userInfo = new UserInfo({
   name: constants.profileName,
@@ -64,7 +75,13 @@ avatarModal.setEventListeners();
 // Card Code
 
 function createCard(card) {
-  const initCard = new Card(card, "#card", openPopupImage, openDeletePopup);
+  const initCard = new Card(
+    card,
+    "#card",
+    openPopupImage,
+    openDeletePopup,
+    sendLike
+  );
   return initCard.createCard();
 }
 // const deleteCard = api.deleteCard();

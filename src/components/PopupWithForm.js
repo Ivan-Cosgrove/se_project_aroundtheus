@@ -29,7 +29,7 @@ export default class PopupWithForm extends Popup {
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._formSubmit(this._getInputValues());
-      // setTimeout(this._reloadPage, 1000);
+      setTimeout(this._reloadPage, 1000);
       this.close();
     });
     super.setEventListeners();
