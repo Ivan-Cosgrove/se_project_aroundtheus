@@ -73,15 +73,16 @@ export default class API {
     });
   }
 
-  deleteCard(cardID) {
+  deleteCard(cardID, card) {
     return fetch(
       `https://around-api.en.tripleten-services.com/v1/cards/:${cardID}`,
       {
         method: "DELETE",
         headers: {
           authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
+          "content-type": "application/JSON",
         },
-        body: JSON.stringify(cardID),
+        body: JSON.stringify(card),
       }
     );
   }

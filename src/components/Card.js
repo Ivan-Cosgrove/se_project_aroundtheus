@@ -1,7 +1,8 @@
 export default class Card {
-  constructor({ name, link }, template, viewImage, handleDelete) {
+  constructor({ name, link, _id }, template, viewImage, handleDelete) {
     this.name = name;
     this.link = link;
+    this._id = _id;
     this._template = template;
     this._viewImage = viewImage;
     this._handleDelete = handleDelete;
@@ -42,9 +43,11 @@ export default class Card {
     const cardImage = this._cardElement.querySelector(".card__image");
     const cardCap = this.name;
     const cardImg = this.link;
+    const cardID = this._id;
     cardName.textContent = cardCap;
     cardImage.src = cardImg;
     cardImage.alt = cardCap;
+    this._cardElement.id = cardID;
 
     this._setEventListeners();
 

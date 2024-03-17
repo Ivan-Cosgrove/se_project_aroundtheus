@@ -28,29 +28,22 @@ api.getInitialCards().then((result) => {
   console.log(result);
 });
 
-// const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
-// api.updateProfilePicture(data);
-// });
 const popupImage = new PopupWithImage(
   constants.popupWithImage,
   constants.popupImage
 );
-
-const validateDeleteModal = new FormValidator(
-  constants.config,
-  constants.deletePopup
-);
-const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
-  // api.deleteCard(data);
-});
-deletePopup.setEventListeners();
 popupImage.setEventListeners();
 const openPopupImage = (data) => {
   popupImage.open(data);
 };
+const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
+  api.deleteCard(data._id, data);
+});
+deletePopup.setEventListeners();
 
-const openDeletePopup = () => {
+const openDeletePopup = (data) => {
   deletePopup.open();
+  constants.deleteID.value = data._id;
 };
 
 const userInfo = new UserInfo({
@@ -62,10 +55,6 @@ const cardModal = new PopupWithForm(constants.cardModal, (data) => {
 });
 cardModal.setEventListeners();
 
-const profileModal = new PopupWithForm(constants.profileModal, (data) => {
-  api.updateUserInfo(data);
-});
-profileModal.setEventListeners();
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
   console.log(data);
   api.updateProfilePicture(data);
@@ -80,7 +69,10 @@ function createCard(card) {
 }
 // const deleteCard = api.deleteCard();
 //Modal Box Code
-
+const profileModal = new PopupWithForm(constants.profileModal, (data) => {
+  api.updateUserInfo(data);
+});
+profileModal.setEventListeners();
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
   const profileInfo = userInfo.getUserInfo();
@@ -117,6 +109,6 @@ export const validateAddModal = new FormValidator(
 );
 validateAddModal.enableValidation();
 
-document.addEventListener("click", (evt) => {
-  console.log(evt.target);
-});
+// document.addEventListener("click", (evt) => {
+//   console.log(evt.target);
+// });

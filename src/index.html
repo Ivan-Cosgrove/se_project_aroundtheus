@@ -77,7 +77,7 @@
         </div>
         <div id="delete-modal" class="modal-box">
           <form class="form modal-box__container">
-            <button class="modal-box__close-button">
+            <button class="modal-box__close-button" type="button">
               <img
                 src="<%=require('./images/vectors/close-icon-26x26.svg')%>"
                 alt="Close delete prompt"
@@ -85,6 +85,12 @@
             </button>
             <h2 class="form__title">Are you sure?</h2>
             <fieldset class="form__fieldset">
+              <input
+                type="text"
+                class="form__input form__input_type_delete"
+                name="_id"
+                id="delete-id"
+              />
               <button class="form__button" type="submit">Delete Card</button>
             </fieldset>
           </form>
@@ -195,7 +201,7 @@
     </div>
 
     <template id="card">
-      <li class="card">
+      <li class="card" id="#">
         <img class="card__image" src="#" alt="#" />
         <button class="card__button-delete"></button>
         <div class="card__description">
