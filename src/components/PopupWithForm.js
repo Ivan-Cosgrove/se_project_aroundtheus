@@ -21,15 +21,13 @@ export default class PopupWithForm extends Popup {
     super.close();
   }
 
-  _reloadPage() {
-    location.reload();
-  }
-
   setEventListeners() {
+    const submitButton = this._popupForm.querySelector(".form__button");
     this._popupForm.addEventListener("submit", (evt) => {
       evt.preventDefault();
+      submitButton.textContent = "Saving...";
       this._formSubmit(this._getInputValues());
-      setTimeout(this._reloadPage, 1000);
+
       this.close();
     });
     super.setEventListeners();

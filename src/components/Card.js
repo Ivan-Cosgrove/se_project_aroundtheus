@@ -37,7 +37,6 @@ export default class Card {
     });
     deleteButton.addEventListener("click", () => {
       this._handleDelete(this);
-      console.log(this._cardElement);
       return this._cardElement;
     });
     cardImage.addEventListener("click", () => {

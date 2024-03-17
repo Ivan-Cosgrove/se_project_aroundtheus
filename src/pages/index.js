@@ -25,7 +25,6 @@ api.getInitialCards().then((result) => {
     constants.cardList
   );
   cardRenderer.renderItems();
-  console.log(result);
 });
 
 const popupImage = new PopupWithImage(
@@ -43,16 +42,16 @@ deletePopup.setEventListeners();
 
 const openDeletePopup = (data) => {
   deletePopup.open();
-  console.log(data);
   constants.deleteID.value = data._id;
 };
 
 function sendLike(data) {
+  // I put the alerts in as a little extra. I'm aware they don't work properly, but they're not part of the project, so I just commented them out.
   if (data.isLiked) {
-    alert(`You removed your like for ${data.name}`);
+    // alert(`You removed your like for ${data.name}`);
     api.removeLike(data._id, data);
   } else {
-    alert(`You liked ${data.name}`);
+    // alert(`You liked ${data.name}`);
     api.likeCard(data._id, data);
   }
 }
@@ -67,7 +66,6 @@ const cardModal = new PopupWithForm(constants.cardModal, (data) => {
 cardModal.setEventListeners();
 
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
-  console.log(data);
   api.updateProfilePicture(data);
 });
 avatarModal.setEventListeners();
@@ -95,7 +93,6 @@ constants.editButton.addEventListener("click", function () {
   const profileInfo = userInfo.getUserInfo();
   constants.nameInput.value = profileInfo.name;
   constants.descInput.value = profileInfo.about;
-  console.log(profileModal);
   validateEditModal.toggleSubmitButton();
 });
 
@@ -125,7 +122,3 @@ export const validateAddModal = new FormValidator(
   constants.cardModal
 );
 validateAddModal.enableValidation();
-
-// document.addEventListener("click", (evt) => {
-//   console.log(evt.target);
-// });
