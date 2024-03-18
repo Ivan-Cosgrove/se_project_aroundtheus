@@ -10,8 +10,12 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import * as utilities from "../utility/utility.js";
 import * as constants from "../utility/constants.js";
-const api = new API(constants.config);
+const api = new API({
+  baseUrl: constants.config.baseUrl,
+  headers: constants.config.headers,
+});
 let cardRenderer;
+let cardArray;
 api.getUserInfo().then((result) => {
   userInfo.setUserInfo(result);
   constants.avatar.src = result.avatar;
@@ -35,8 +39,9 @@ popupImage.setEventListeners();
 const openPopupImage = (data) => {
   popupImage.open(data);
 };
+
 const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
-  api.deleteCard(data._id, data);
+  api.deleteCard(data._id, data).then();
 });
 deletePopup.setEventListeners();
 
@@ -52,21 +57,48 @@ function sendLike(data) {
     api.removeLike(data._id, data);
   } else {
     // alert(`You liked ${data.name}`);
-    api.likeCard(data._id, data);
+    api
+      .likeCard(data._id, data)
+      .then((cardArray = document.querySelectorAll(".card")))
+      .then(() => {
+        cardArray.forEach((card) => {
+          if (card.id === data._id) {
+            console.log(card);
+          }
+        });
+      });
   }
 }
-
+api.getInitialCards().then((result) => {
+  console.log(result);
+});
+// constants.cardList.forEach((card) => {
+//   // constants.cardObject.name = card.name;
+//   // constants.cardObject.link = card.link;
+//   // constants.cardObject._id = card.id;
+//   // constants.cardObject.isLiked = card.isLiked;
+//   console.log(card);
+// });
 const userInfo = new UserInfo({
   name: constants.profileName,
   about: constants.profileDesc,
 });
 const cardModal = new PopupWithForm(constants.cardModal, (data) => {
-  api.sendCard(data);
+  api
+    .sendCard(data)
+    .then(() => api.getInitialCards())
+    .then((result) => {
+      result.forEach((card) => {
+        console.log(card);
+      });
+    });
 });
 cardModal.setEventListeners();
-
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
-  api.updateProfilePicture(data);
+  api.updateProfilePicture(data).then(alert("Image sent to server"));
+  // .then(() => api.getUserInfo())
+
+  // .then((result) => (constants.avatar.src = result.avatar));
 });
 avatarModal.setEventListeners();
 
@@ -86,10 +118,13 @@ function createCard(card) {
 //Modal Box Code
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   api.updateUserInfo(data);
+  constants.profileName.textContent = data.name;
+  constants.profileDesc.textContent = data.about;
 });
 profileModal.setEventListeners();
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
+  console.log(cardRenderer);
   const profileInfo = userInfo.getUserInfo();
   constants.nameInput.value = profileInfo.name;
   constants.descInput.value = profileInfo.about;

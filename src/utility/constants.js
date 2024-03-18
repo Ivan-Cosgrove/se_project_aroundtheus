@@ -62,4 +62,17 @@ export const config = {
   inactiveButton: "form__button_disabled",
   inputError: "form__input_invalid",
   error: "form__error_visible",
+  // API Options
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
+    "content-type": "application/JSON",
+  },
+};
+
+export const cardObject = {
+  name: "",
+  link: "",
+  isLiked: false,
+  _id: "",
 };

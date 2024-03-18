@@ -6,10 +6,8 @@ export default class API {
   }
 
   getInitialCards() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
-      headers: {
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-      },
+    return fetch(`${this._options.baseUrl}/cards`, {
+      headers: this._options.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
