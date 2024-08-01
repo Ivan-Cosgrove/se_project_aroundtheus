@@ -72,5 +72,6 @@
   transition: opacity 0.3s linear;
 }
 .card__button-delete:hover {
+  background-color: #000;
   opacity: 0.6;
 }
