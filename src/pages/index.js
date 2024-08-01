@@ -20,17 +20,20 @@ api.getUserInfo().then((result) => {
   userInfo.setUserInfo(result);
   constants.avatar.src = result.avatar;
 });
-api.getInitialCards().then((result) => {
-  const renderCard = (card) => {
-    cardRenderer.addItem(createCard(card));
-  };
-  cardRenderer = new Section(
-    { items: result, renderer: renderCard },
-    constants.cardList
-  );
-  cardRenderer.renderItems();
-});
+const loadCards = () => {
+  api.getInitialCards().then((result) => {
+    const renderCard = (card) => {
+      cardRenderer.addItem(createCard(card));
+    };
+    cardRenderer = new Section(
+      { items: result, renderer: renderCard },
+      constants.cardList
+    );
+    cardRenderer.renderItems();
+  });
+};
 
+loadCards();
 const popupImage = new PopupWithImage(
   constants.popupWithImage,
   constants.popupImage
@@ -41,7 +44,21 @@ const openPopupImage = (data) => {
 };
 
 const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
-  api.deleteCard(data._id, data).then();
+  api
+    .deleteCard(data._id, data)
+    .then(() => {
+      deletePopup.submitButton.textContent = "Delete Card";
+      cardArray = document.querySelectorAll(".card");
+      cardArray.forEach((card) => {
+        if (card.id === data._id) {
+          card.remove();
+        }
+      });
+      deletePopup.close();
+    })
+    .catch((error) => {
+      alert(`Request to server failed. ${error}`);
+    });
 });
 deletePopup.setEventListeners();
 
@@ -51,34 +68,19 @@ const openDeletePopup = (data) => {
 };
 
 function sendLike(data) {
-  // I put the alerts in as a little extra. I'm aware they don't work properly, but they're not part of the project, so I just commented them out.
   if (data.isLiked) {
-    // alert(`You removed your like for ${data.name}`);
-    api.removeLike(data._id, data);
+    api
+      .removeLike(data._id, data)
+      .then((data.isLiked = false))
+      .then(alert(`Like for "${data.name}" removed`));
   } else {
-    // alert(`You liked ${data.name}`);
     api
       .likeCard(data._id, data)
-      .then((cardArray = document.querySelectorAll(".card")))
-      .then(() => {
-        cardArray.forEach((card) => {
-          if (card.id === data._id) {
-            console.log(card);
-          }
-        });
-      });
+      .then((data.isLiked = true))
+      .then(alert(`Like for "${data.name}" added`));
   }
 }
-api.getInitialCards().then((result) => {
-  console.log(result);
-});
-// constants.cardList.forEach((card) => {
-//   // constants.cardObject.name = card.name;
-//   // constants.cardObject.link = card.link;
-//   // constants.cardObject._id = card.id;
-//   // constants.cardObject.isLiked = card.isLiked;
-//   console.log(card);
-// });
+
 const userInfo = new UserInfo({
   name: constants.profileName,
   about: constants.profileDesc,
@@ -86,19 +88,22 @@ const userInfo = new UserInfo({
 const cardModal = new PopupWithForm(constants.cardModal, (data) => {
   api
     .sendCard(data)
-    .then(() => api.getInitialCards())
+
     .then((result) => {
-      result.forEach((card) => {
-        console.log(card);
-      });
+      cardRenderer.addItem(createCard(result));
+      cardModal.submitButton.textContent = "Create";
+      cardModal.close();
     });
 });
+
 cardModal.setEventListeners();
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
-  api.updateProfilePicture(data).then(alert("Image sent to server"));
-  // .then(() => api.getUserInfo())
+  api.updateProfilePicture(data).then((result) => {
+    constants.avatar.src = result.avatar;
 
-  // .then((result) => (constants.avatar.src = result.avatar));
+    avatarModal.close();
+    avatarModal.submitButton.textContent = "Change Picture";
+  });
 });
 avatarModal.setEventListeners();
 
@@ -114,17 +119,17 @@ function createCard(card) {
   );
   return initCard.createCard();
 }
-// const deleteCard = api.deleteCard();
+
 //Modal Box Code
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   api.updateUserInfo(data);
   constants.profileName.textContent = data.name;
   constants.profileDesc.textContent = data.about;
+  profileModal.close();
 });
 profileModal.setEventListeners();
 constants.editButton.addEventListener("click", function () {
   profileModal.open();
-  console.log(cardRenderer);
   const profileInfo = userInfo.getUserInfo();
   constants.nameInput.value = profileInfo.name;
   constants.descInput.value = profileInfo.about;
@@ -152,7 +157,7 @@ const validateEditModal = new FormValidator(
 );
 validateEditModal.enableValidation();
 
-export const validateAddModal = new FormValidator(
+const validateAddModal = new FormValidator(
   constants.config,
   constants.cardModal
 );

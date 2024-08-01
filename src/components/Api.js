@@ -17,10 +17,8 @@ export default class API {
   }
 
   getUserInfo() {
-    return fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-      headers: {
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-      },
+    return fetch(`${this._options.baseUrl}/users/me`, {
+      headers: this._options.headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -30,86 +28,83 @@ export default class API {
   }
 
   submitUserInfo(data) {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    fetch(`${this._options.baseUrl}/users/me`, {
+      headers: this._options.headers,
       method: "POST",
-      headers: {
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-      },
-    }).then(JSON.stringify(data));
+      body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   updateUserInfo(data) {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+    fetch(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
-      headers: {
-        "content-type": "application/JSON",
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-      },
+      headers: this._options.headers,
       body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   updateProfilePicture(data) {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me/avatar", {
+    return fetch(`${this._options.baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: {
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-        "content-type": "application/JSON",
-      },
+      headers: this._options.headers,
       body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   sendCard(data) {
-    return fetch("https://around-api.en.tripleten-services.com/v1/cards", {
+    return fetch(`${this._options.baseUrl}/cards`, {
       method: "POST",
-      headers: {
-        "content-type": "application/JSON",
-        authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-      },
+      headers: this._options.headers,
       body: JSON.stringify(data),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   deleteCard(cardID, card) {
-    return fetch(
-      `https://around-api.en.tripleten-services.com/v1/cards/${cardID}`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-          "content-type": "application/JSON",
-        },
-        body: JSON.stringify(card),
+    return fetch(`${this._options.baseUrl}/cards/${cardID}`, {
+      method: "DELETE",
+      headers: this._options.headers,
+      body: JSON.stringify(card),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
       }
-    );
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   likeCard(cardID, card) {
-    return fetch(
-      `https://around-api.en.tripleten-services.com/v1/cards/${cardID}/likes`,
-      {
-        method: "PUT",
-        headers: {
-          authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-          "content-type": "application/JSON",
-        },
-        body: JSON.stringify(card),
-      }
-    );
+    return fetch(`${this._options.baseUrl}/cards/${cardID}/likes`, {
+      method: "PUT",
+      headers: this._options.headers,
+      body: JSON.stringify(card),
+    });
   }
 
   removeLike(cardID, card) {
-    return fetch(
-      `https://around-api.en.tripleten-services.com/v1/cards/${cardID}/likes`,
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
-          "content-type": "application/JSON",
-        },
-        body: JSON.stringify(card),
-      }
-    );
+    return fetch(`${this._options.baseUrl}/cards/${cardID}/likes`, {
+      method: "DELETE",
+      headers: this._options.headers,
+      body: JSON.stringify(card),
+    });
   }
 }

@@ -20,6 +20,7 @@ export const deletePopup = document.querySelector("#delete-modal");
 export const deleteName = document.querySelector("#delete-name");
 export const deleteLink = document.querySelector("#delete-link");
 export const deleteID = document.querySelector("#delete-id");
+
 export const initialCards = [
   {
     name: "Yosemite Valley",
