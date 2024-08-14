@@ -5,26 +5,23 @@ export default class API {
     this._options = options;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._options.baseUrl}/cards`, {
       headers: this._options.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   submitUserInfo(data) {
@@ -32,12 +29,7 @@ export default class API {
       headers: this._options.headers,
       method: "POST",
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   updateUserInfo(data) {
@@ -45,12 +37,7 @@ export default class API {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   updateProfilePicture(data) {
@@ -58,12 +45,7 @@ export default class API {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   sendCard(data) {
@@ -71,12 +53,7 @@ export default class API {
       method: "POST",
       headers: this._options.headers,
       body: JSON.stringify(data),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   deleteCard(cardID, card) {
@@ -84,12 +61,7 @@ export default class API {
       method: "DELETE",
       headers: this._options.headers,
       body: JSON.stringify(card),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._checkResponse);
   }
 
   likeCard(cardID, card) {
@@ -97,7 +69,7 @@ export default class API {
       method: "PUT",
       headers: this._options.headers,
       body: JSON.stringify(card),
-    });
+    }).then(this._checkResponse);
   }
 
   removeLike(cardID, card) {
@@ -105,6 +77,6 @@ export default class API {
       method: "DELETE",
       headers: this._options.headers,
       body: JSON.stringify(card),
-    });
+    }).then(this._checkResponse);
   }
 }

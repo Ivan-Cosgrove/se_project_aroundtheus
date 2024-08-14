@@ -14,23 +14,33 @@ const api = new API({
   baseUrl: constants.config.baseUrl,
   headers: constants.config.headers,
 });
-let cardRenderer;
+let cardSection;
 let cardArray;
-api.getUserInfo().then((result) => {
-  userInfo.setUserInfo(result);
-  constants.avatar.src = result.avatar;
-});
-const loadCards = () => {
-  api.getInitialCards().then((result) => {
-    const renderCard = (card) => {
-      cardRenderer.addItem(createCard(card));
-    };
-    cardRenderer = new Section(
-      { items: result, renderer: renderCard },
-      constants.cardList
-    );
-    cardRenderer.renderItems();
+api
+  .getUserInfo()
+  .then((result) => {
+    userInfo.setUserInfo(result);
+    // constants.avatar.src = result.avatar;
+  })
+  .catch((error) => {
+    alert(`Request to server for user info failed. ${error}`);
   });
+const loadCards = () => {
+  api
+    .getInitialCards()
+    .then((result) => {
+      const renderCard = (card) => {
+        cardSection.addItem(createCard(card));
+      };
+      cardSection = new Section(
+        { items: result, renderer: renderCard },
+        constants.cardList
+      );
+      cardSection.renderItems();
+    })
+    .catch((error) => {
+      alert(`Request to server for saved cards failed. ${error}`);
+    });
 };
 
 loadCards();
@@ -47,17 +57,15 @@ const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
   api
     .deleteCard(data._id, data)
     .then(() => {
-      deletePopup.submitButton.textContent = "Delete Card";
-      cardArray = document.querySelectorAll(".card");
-      cardArray.forEach((card) => {
-        if (card.id === data._id) {
-          card.remove();
-        }
-      });
+      const card = document.getElementById(data._id);
+      card.remove();
       deletePopup.close();
     })
     .catch((error) => {
-      alert(`Request to server failed. ${error}`);
+      alert(`Request to server to remove card failed. ${error}`);
+    })
+    .finally(() => {
+      deletePopup.submitButton.textContent = "Delete Card";
     });
 });
 deletePopup.setEventListeners();
@@ -71,39 +79,58 @@ function sendLike(data) {
   if (data.isLiked) {
     api
       .removeLike(data._id, data)
-      .then((data.isLiked = false))
-      .then(alert(`Like for "${data.name}" removed`));
+      .then((result) => {
+        data.isLiked = result.isLiked;
+      })
+      .catch((error) => {
+        alert(`Request to server to update like failed. ${error}`);
+      });
   } else {
     api
       .likeCard(data._id, data)
-      .then((data.isLiked = true))
-      .then(alert(`Like for "${data.name}" added`));
+      .then((result) => {
+        data.isLiked = result.isLiked;
+      })
+      .catch((error) => {
+        alert(`Request to server to update like failed. ${error}`);
+      });
   }
 }
 
 const userInfo = new UserInfo({
   name: constants.profileName,
   about: constants.profileDesc,
+  avatar: constants.avatar,
 });
 const cardModal = new PopupWithForm(constants.cardModal, (data) => {
+  cardModal.renderLoading(true);
   api
     .sendCard(data)
 
     .then((result) => {
-      cardRenderer.addItem(createCard(result));
-      cardModal.submitButton.textContent = "Create";
+      cardSection.addItem(createCard(result));
+
       cardModal.close();
+    })
+    .catch((error) => {
+      alert(`Request to server to add card failed. ${error}`);
+    })
+    .finally(() => {
+      cardModal.renderLoading(false, "Create");
     });
 });
 
 cardModal.setEventListeners();
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
-  api.updateProfilePicture(data).then((result) => {
-    constants.avatar.src = result.avatar;
+  api
+    .updateProfilePicture(data)
+    .then((result) => {
+      constants.avatar.src = result.avatar;
 
-    avatarModal.close();
-    avatarModal.submitButton.textContent = "Change Picture";
-  });
+      avatarModal.close();
+      avatarModal.submitButton.textContent = "Change Picture";
+    })
+    .catch(error);
 });
 avatarModal.setEventListeners();
 
@@ -122,9 +149,11 @@ function createCard(card) {
 
 //Modal Box Code
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
-  api.updateUserInfo(data);
-  constants.profileName.textContent = data.name;
-  constants.profileDesc.textContent = data.about;
+  api.updateUserInfo(data).then((result) => {
+    console.log(result);
+  });
+  // constants.profileName.textContent = data.name;
+  // constants.profileDesc.textContent = data.about;
   profileModal.close();
 });
 profileModal.setEventListeners();
