@@ -63,7 +63,7 @@ const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
     .catch(console.error)
 
     .finally(() => {
-      deletePopup.renderLoading(false, "Delete Card");
+      deletePopup.renderLoading(false);
     });
 });
 deletePopup.setEventListeners();
@@ -108,7 +108,7 @@ const cardModal = new PopupWithForm(constants.cardModal, (data) => {
     })
     .catch(console.error)
     .finally(() => {
-      cardModal.renderLoading(false, "Create");
+      cardModal.renderLoading(false);
     });
 });
 
@@ -118,13 +118,13 @@ const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
   api
     .updateProfilePicture(data)
     .then((result) => {
-      constants.avatar.src = result.avatar;
+      userInfo.setUserInfo(result);
 
       avatarModal.close();
     })
     .catch(console.error)
     .finally(() => {
-      avatarModal.renderLoading(false, "Change Picture");
+      avatarModal.renderLoading(false);
     });
 });
 avatarModal.setEventListeners();
@@ -148,13 +148,12 @@ const profileModal = new PopupWithForm(constants.profileModal, (data) => {
   api
     .updateUserInfo(data)
     .then((result) => {
-      constants.profileName.textContent = result.name;
-      constants.profileDesc.textContent = result.about;
+      userInfo.setUserInfo(result);
       profileModal.close();
     })
     .catch(console.error)
     .finally(() => {
-      profileModal.renderLoading(false, "Save Info");
+      profileModal.renderLoading(false);
     });
   // constants.profileName.textContent = data.name;
   // constants.profileDesc.textContent = data.about;
