@@ -11,6 +11,16 @@ export const nameInput = document.querySelector(".form__input_type_name");
 export const descInput = document.querySelector(
   ".form__input_type_description"
 );
+export const avatar = document.querySelector(".profile__image");
+export const changeAvatar = document.querySelector("#change-avatar");
+export const changeAvatarButton = document.querySelector(
+  ".profile__buttons-image-edit"
+);
+export const deletePopup = document.querySelector("#delete-modal");
+export const deleteName = document.querySelector("#delete-name");
+export const deleteLink = document.querySelector("#delete-link");
+export const deleteID = document.querySelector("#delete-id");
+
 export const initialCards = [
   {
     name: "Yosemite Valley",
@@ -42,6 +52,7 @@ export const config = {
   // IDs
   editModal: "#edit-profile",
   addModal: "#add-card",
+  changeAvatar: "#change-avatar",
   // Selectors
   name: ".profile__title",
   description: ".profile__subtitle",
@@ -52,4 +63,17 @@ export const config = {
   inactiveButton: "form__button_disabled",
   inputError: "form__input_invalid",
   error: "form__error_visible",
+  // API Options
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "eb144407-9d56-4c39-8eac-7fa32452a67f",
+    "content-type": "application/JSON",
+  },
+};
+
+export const cardObject = {
+  name: "",
+  link: "",
+  isLiked: false,
+  _id: "",
 };
