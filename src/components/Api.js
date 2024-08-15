@@ -25,7 +25,7 @@ export default class API {
   }
 
   submitUserInfo(data) {
-    fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       headers: this._options.headers,
       method: "POST",
       body: JSON.stringify(data),
@@ -33,7 +33,7 @@ export default class API {
   }
 
   updateUserInfo(data) {
-    fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this._options.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify(data),

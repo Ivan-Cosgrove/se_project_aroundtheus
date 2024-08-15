@@ -20,11 +20,8 @@ api
   .getUserInfo()
   .then((result) => {
     userInfo.setUserInfo(result);
-    // constants.avatar.src = result.avatar;
   })
-  .catch((error) => {
-    alert(`Request to server for user info failed. ${error}`);
-  });
+  .catch(console.error);
 const loadCards = () => {
   api
     .getInitialCards()
@@ -38,9 +35,7 @@ const loadCards = () => {
       );
       cardSection.renderItems();
     })
-    .catch((error) => {
-      alert(`Request to server for saved cards failed. ${error}`);
-    });
+    .catch(console.error);
 };
 
 loadCards();
@@ -54,18 +49,21 @@ const openPopupImage = (data) => {
 };
 
 const deletePopup = new PopupWithForm(constants.deletePopup, (data) => {
+  deletePopup.renderLoading(true);
   api
     .deleteCard(data._id, data)
     .then(() => {
       const card = document.getElementById(data._id);
+
       card.remove();
+
       deletePopup.close();
     })
-    .catch((error) => {
-      alert(`Request to server to remove card failed. ${error}`);
-    })
+
+    .catch(console.error)
+
     .finally(() => {
-      deletePopup.submitButton.textContent = "Delete Card";
+      deletePopup.renderLoading(false, "Delete Card");
     });
 });
 deletePopup.setEventListeners();
@@ -82,18 +80,14 @@ function sendLike(data) {
       .then((result) => {
         data.isLiked = result.isLiked;
       })
-      .catch((error) => {
-        alert(`Request to server to update like failed. ${error}`);
-      });
+      .catch(console.error);
   } else {
     api
       .likeCard(data._id, data)
       .then((result) => {
         data.isLiked = result.isLiked;
       })
-      .catch((error) => {
-        alert(`Request to server to update like failed. ${error}`);
-      });
+      .catch(console.error);
   }
 }
 
@@ -112,9 +106,7 @@ const cardModal = new PopupWithForm(constants.cardModal, (data) => {
 
       cardModal.close();
     })
-    .catch((error) => {
-      alert(`Request to server to add card failed. ${error}`);
-    })
+    .catch(console.error)
     .finally(() => {
       cardModal.renderLoading(false, "Create");
     });
@@ -122,15 +114,18 @@ const cardModal = new PopupWithForm(constants.cardModal, (data) => {
 
 cardModal.setEventListeners();
 const avatarModal = new PopupWithForm(constants.changeAvatar, (data) => {
+  avatarModal.renderLoading(true);
   api
     .updateProfilePicture(data)
     .then((result) => {
       constants.avatar.src = result.avatar;
 
       avatarModal.close();
-      avatarModal.submitButton.textContent = "Change Picture";
     })
-    .catch(error);
+    .catch(console.error)
+    .finally(() => {
+      avatarModal.renderLoading(false, "Change Picture");
+    });
 });
 avatarModal.setEventListeners();
 
@@ -149,12 +144,20 @@ function createCard(card) {
 
 //Modal Box Code
 const profileModal = new PopupWithForm(constants.profileModal, (data) => {
-  api.updateUserInfo(data).then((result) => {
-    console.log(result);
-  });
+  profileModal.renderLoading(true);
+  api
+    .updateUserInfo(data)
+    .then((result) => {
+      constants.profileName.textContent = result.name;
+      constants.profileDesc.textContent = result.about;
+      profileModal.close();
+    })
+    .catch(console.error)
+    .finally(() => {
+      profileModal.renderLoading(false, "Save Info");
+    });
   // constants.profileName.textContent = data.name;
   // constants.profileDesc.textContent = data.about;
-  profileModal.close();
 });
 profileModal.setEventListeners();
 constants.editButton.addEventListener("click", function () {
